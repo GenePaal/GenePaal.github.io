@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="GenePaal">
 <meta property="og:description" content="Problem Description有二个整数，它们加起来等于某个整数，乘起来又等于另一个整数，它们到底是真还是假，也就是这种整数到底存不存在，实在有点吃不准，你能快速回答吗？看来只能通过编程。例如：x + y &#x3D; 9，x * y &#x3D; 15 ? 找不到这样的整数x和y1+4&#x3D;5，1*4&#x3D;4，所以，加起来等于5，乘起来等于4的二个整数为1和47+(-8)&#x3D;-1，7*（-8）&#x3D;-56，所以，加起来等">
 <meta property="article:published_time" content="2020-05-29T15:12:00.000Z">
-<meta property="article:modified_time" content="2020-05-29T15:11:54.320Z">
+<meta property="article:modified_time" content="2020-05-29T15:17:15.759Z">
 <meta property="article:author" content="GenePaal">
 <meta property="article:tag" content="HDOJ">
 <meta property="article:tag" content="Lessons">
@@ -398,13 +398,13 @@
 <h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">No</span><br><span class="line">Yes</span><br><span class="line">Yes</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><blockquote>
-<p>网上呢，大部分都是暴力枚举或者是解二次方程的方法，个人写了另外的一种解法</p>
+<p>网上呢，大部分都是暴力枚举或者是解二次方程的方法，个人写了另外的一种解法（比较绕，情况比较多，细分下来有五种情况）</p>
 </blockquote>
 <p>这个题呢，说到底就是找 <code>y</code> 的因数，找到因数一切就都好办了。</p>
 <ul>
 <li>先来考虑<code>y</code>是正数的情况。一个正数的因数可以是两个负数，也可以是两个正数。<ul>
-<li>*<em>操作1： *</em> 如果<code>x</code>是正数，那么要找的满足条件的<code>y</code>的两个因数都是正数。先用 for 循环遍历小于等于<code>sqrt(y)</code>（根号y）的所有正整数，依次找到<code>y</code>的因数，然后用<code>y</code>除以这个因数找到另一个因数。这样的话两个因数就找全了。再对两数之和是否等于<code>x</code>进行判断即可。</li>
-<li>*<em>操作2： *</em> 如果<code>x</code>是负数，那么要找的满足条件的<code>y</code>的两个因数都是负数，先进行操作1 找到两个正的因数，再判断这两个正的因数的和是否等于<code>-x</code>即可。</li>
+<li><strong>操作1</strong> ：  如果<code>x</code>是正数，那么要找的满足条件的<code>y</code>的两个因数都是正数。从 1 开始遍历小于等于<code>sqrt(y)</code>（根号y）的所有正整数，依次找到<code>y</code>的因数，然后用<code>y</code>除以这个因数找到另一个因数。这样的话两个因数就找全了。再对两数之和是否等于<code>x</code>进行判断即可。</li>
+<li><strong>操作2</strong> ：  如果<code>x</code>是负数，那么要找的满足条件的<code>y</code>的两个因数都是负数，先进行操作1 找到两个正的因数，再判断这两个正的因数的和是否等于<code>-x</code>即可。</li>
 </ul>
 </li>
 <li>如果<code>y</code>是负数呢？当<code>y</code>是负数的时，只能拆成一个正因子一个负因子，但是也会有两种情况，比如 <code>-56</code>可以拆成 <code>-7 、 8</code>，也可以拆成<code>7 、-8</code>  ，在这里只要把   <code>y</code>是变成正数执行<strong>操作1</strong>，然后再给找到的两个因数分配负号即可。<strong>操作1</strong>进行结束以后，假设找到两个因数 <code>a</code> 和<code>b</code> ，然后分配负号，要么分配给<code>a</code>，要么分配给<code>b</code>，因此 <code>-a + b</code> 和   <code>a + (-b)</code>之间，只要满足有一个的和为<code>x</code>即满足题目条件。</li>
