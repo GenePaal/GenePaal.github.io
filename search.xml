@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>HDOJ 2092</title>
-    <url>/2020/05/29/HDOJ-2092/</url>
+    <url>/2020/05/30/HDOJ-2092/</url>
     <content><![CDATA[<h3 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h3><p>有二个整数，它们加起来等于某个整数，乘起来又等于另一个整数，它们到底是真还是假，也就是这种整数到底存不存在，实在有点吃不准，你能快速回答吗？看来只能通过编程。<br>例如：<br>x + y = 9，x * y = 15 ? 找不到这样的整数x和y<br>1+4=5，1*4=4，所以，加起来等于5，乘起来等于4的二个整数为1和4<br>7+(-8)=-1，7*（-8）=-56，所以，加起来等于-1，乘起来等于-56的二个整数为7和-8</p>
 <a id="more"></a>
 
@@ -38,11 +38,9 @@
 ]]></content>
       <categories>
         <category>HDOJ</category>
-        <category>Lessons</category>
       </categories>
       <tags>
         <tag>HDOJ</tag>
-        <tag>Lessons</tag>
       </tags>
   </entry>
 </search>
