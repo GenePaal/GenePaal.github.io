@@ -8,7 +8,7 @@
 </blockquote>
 <ul>
 <li><code>scanf()</code>和<code>getchar()</code>不可以吸收后面的回车，若其后还有字符或字符串输入，中间需要用<code>getchar()</code>来吸收回车</li>
-<li><code>gets()</code>以回车作为结束标志，并将回车改为<code>&#39;\0&#39;</code>存入</li>
+<li><code>gets()</code>以回车作为结束标志，并将回车改为<code>&#39;\0&#39;</code>存入，因此<code>gets()</code>读取字符串时，自动吸收回车</li>
 <li><code>getchar()</code>只可以用来接收字符，<code>gets()</code>只能接收字符串</li>
 <li><code>puts()</code>自带换行</li>
 </ul>

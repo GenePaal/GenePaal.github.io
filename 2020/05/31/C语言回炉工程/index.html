@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="GenePaal">
 <meta property="og:description" content="在读入字符&#x2F;字符串时需要注意的问题 HDOJ 2091 一道水题，硬是给我上了一课，主要还是C语言基础不扎实，对于字符&#x2F;字符串的的多次输入时应该注意的问题仍然理解不透彻，当我用我的一贯做法： stdlib.h 里的 fflush(stdin)来清理输入缓存区，得到的结果是 Output Limit Exceeded  ， T^T，明明效果是一样的，为什么过不了。后来用getchar()来清输入缓存">
 <meta property="article:published_time" content="2020-05-31T08:45:15.000Z">
-<meta property="article:modified_time" content="2020-05-31T09:04:51.847Z">
+<meta property="article:modified_time" content="2020-05-31T09:07:45.832Z">
 <meta property="article:author" content="GenePaal">
 <meta property="article:tag" content="C语言基础回炉">
 <meta name="twitter:card" content="summary">
@@ -379,7 +379,7 @@
 </blockquote>
 <ul>
 <li><code>scanf()</code>和<code>getchar()</code>不可以吸收后面的回车，若其后还有字符或字符串输入，中间需要用<code>getchar()</code>来吸收回车</li>
-<li><code>gets()</code>以回车作为结束标志，并将回车改为<code>&#39;\0&#39;</code>存入</li>
+<li><code>gets()</code>以回车作为结束标志，并将回车改为<code>&#39;\0&#39;</code>存入，因此<code>gets()</code>读取字符串时，自动吸收回车</li>
 <li><code>getchar()</code>只可以用来接收字符，<code>gets()</code>只能接收字符串</li>
 <li><code>puts()</code>自带换行</li>
 </ul>
