@@ -1822,7 +1822,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff8387;
+  background: #cfff38;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2652,7 +2652,7 @@ hr {
 .site-meta .site-title {
   font-size: 22px;
   font-weight: bolder;
-  padding-left: 18px;
+  padding-left: 25px;
 }
 @media (max-width: 767px) {
   .site-meta .site-title {
