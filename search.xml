@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>C language basics</title>
-    <url>/2020/05/31/C-language-basics%20/</url>
+    <title>C语言基础</title>
+    <url>/2020/05/31/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%20/</url>
     <content><![CDATA[<h3 id="在读入字符-字符串时需要注意的问题"><a href="#在读入字符-字符串时需要注意的问题" class="headerlink" title="在读入字符/字符串时需要注意的问题"></a>在读入字符/字符串时需要注意的问题</h3><blockquote>
 <p>HDOJ 2091 一道水题，硬是给上了一课，主要还是C语言基础不扎实，对于字符/字符串的的多次输入时应该注意的问题仍然理解不透彻，当我用我的一贯做法： <code>stdlib.h</code> 里的 <code>fflush(stdin)</code>来清理输入缓存区，得到的结果是 Output Limit Exceeded  ， T^T，明明效果是一样的，为什么过不了。后来用<code>getchar()</code>来清输入缓存区，成功AC，目前还不知道这两个的原理究竟有何不同，有时间深挖一下。 </p>
 </blockquote>
@@ -14,10 +14,10 @@
 </ul>
 ]]></content>
       <categories>
-        <category>C language basics</category>
+        <category>C语言基础</category>
       </categories>
       <tags>
-        <tag>C language basics</tag>
+        <tag>C语言基础</tag>
       </tags>
   </entry>
   <entry>
