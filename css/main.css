@@ -1822,7 +1822,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #5bff22;
+  background: #32e02a;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2777,7 +2777,7 @@ hr {
   margin: 0;
 }
 .posts-expand .post-tags {
-  text-align: left;
+  text-align: center;
 }
 .posts-expand .post-tags a {
   padding: 1px 5px;
@@ -2792,7 +2792,7 @@ hr {
 }
 .post-button {
   margin-top: 20px;
-  text-align: left;
+  text-align: center;
 }
 .post-button a {
   padding: 0;
