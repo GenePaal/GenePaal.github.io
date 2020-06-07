@@ -62,4 +62,76 @@
         <tag>HDOJ</tag>
       </tags>
   </entry>
+  <entry>
+    <title>初窥链表</title>
+    <url>/2020/06/07/%E5%88%9D%E7%AA%A5%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h3 id="作文缘由"><a href="#作文缘由" class="headerlink" title="作文缘由"></a>作文缘由</h3><ul>
+<li>为了让处在水深火热之中的广大C语言初学者少踩坑，写下此文，希望给后来者指一下方向。</li>
+<li>第一篇稍微有点技术含量的博客，昨天下午看完了男神丁的链表课，看完就嘿嘿嘿，链表也不过如此嘛，晚上九点多打开雪梨任务开始做第三题，结果……呵呵呵。通过昨天下午的学习和做完第一道链表的水题，总结一点东西来表达一下自己的感慨。</li>
+</ul>
+<h3 id="一些建议"><a href="#一些建议" class="headerlink" title="一些建议"></a>一些建议</h3><p>纸上自己画画，琢磨琢磨，不要怀疑自己的智商，那只会浪费时间降低思考效率。</p>
+<h3 id="容易混淆-懵圈-的地方"><a href="#容易混淆-懵圈-的地方" class="headerlink" title="容易混淆(懵圈)的地方"></a>容易混淆(懵圈)的地方</h3><p>链表嘛，其实就是结构体+指针，然而不知道有多少人跪了= =</p>
+<ul>
+<li>指向首结点的指针只是一个单纯的指针，这个指针存的是首结点的地址</li>
+<li>要分清什么是结点的地址，什么是结点的指针域，指针域又是什么？指针域的值是下一个结点的地址。说着都挺简单的，反正我这个菜鸡当时是绕进去了。就是三个东西，一个是当前结点本身这个大东西的地址；还有一个是，当前结点自身这个大东西的地址被存在上一个结点的指针域里；最后一个是，结构体内部的指针域还存着一个地址，是下一个结点的地址。  除去一些细枝末节的东西，这三个东西差不多就是链表相互之间联系的桥梁。  此外，还要分清楚： 什么是结点类型（即声明的结构体类型）的指针变量，什么是结点类型。</li>
+<li>在用temp遍历结点的时候，要知道temp = 当前结构体的指针域，也代表temp指向下一个结点那个大东西的地址，具体请看下方<code>对于两段代码的思考</code></li>
+</ul>
+<h3 id="数据域尽量使用结构体，不要单独开变量"><a href="#数据域尽量使用结构体，不要单独开变量" class="headerlink" title="数据域尽量使用结构体，不要单独开变量"></a>数据域尽量使用结构体，不要单独开变量</h3><p>为什么要这么说呢，在做作业swap函数的时候，我的第一个思路是直接把相应结点的地址换了就行了呗。</p>
+<p>然而，事情没有想象的那么简单。变量的地址还能换？？？怎么换？？？我这个菜鸡目前还不会 hhh</p>
+<p>所以，我又想了，并且想的又全面了一点。要换俩结点的数据域，无非就是让第<code>i-1</code>个结点的指针域是第<code>j</code>个结点的地址，让第<code>j</code>个结点的指针域等于第<code>i</code>个结点的指针域，让第<code>j-1</code>的指针域是第<code>i</code>个结点的地址，让第<code>i</code>个结点的指针域等于第<code>j</code>个结点的指针域。 在这期间还需要开中间变量来存第<code>j</code>个结点的指针域。<strong>我去，真麻烦，呸！</strong>然后我又想了一下，这仅仅是一种普通情况，呵呵呵，事情远远没有想象的那么简单</p>
+<p>在这里规定结点数为<code>n</code>，个人想出来几种想的到的<code>子情况</code>（欢迎大佬补充），要交换数据域的两个结点是第<code>i</code>个和第<code>j</code>个，在这里规定<code>i &lt; j</code></p>
+<blockquote>
+<ul>
+<li>n &gt; 3, 两个结点中间相隔的结点数 &gt;= 1， 且都不是首结点。就是上边说的情况。</li>
+<li>两个结点是相邻的。上述做法就不可行了，直接让第i - 1 个结点的指针域等于第j个结点的地址，让第j个结点的指针域等于第i个结点的地址，让第i个结点的指针域等于第j个结点的指针域即可。</li>
+<li>要交换的两个结点中，前者是首结点。首结点前面是没有结点的，因此需要让指向首结点的指针等于第 j个结点的地址。</li>
+</ul>
+<p>列出是子情况，它们还可以组成其它情况： 例如 n = 2 时，是第二个情况和第三个情况的综合</p>
+</blockquote>
+<h5 id="行了，扯了一大堆，让我们回到正题。-有没有被这种直接对地址的操作恶心到？"><a href="#行了，扯了一大堆，让我们回到正题。-有没有被这种直接对地址的操作恶心到？" class="headerlink" title="行了，扯了一大堆，让我们回到正题。  有没有被这种直接对地址的操作恶心到？"></a>行了，扯了一大堆，让我们回到正题。  有没有被这种直接对地址的操作恶心到？</h5><p>所以，以后敲代码的时候，数据域还是使用结构体吧 = = 。这样的话，直接找到两个结点的地址，对地址寻址交换它们的数据域就妥了，结构体可以直接相互赋值还是很舒服的。如果前人的代码，数据域里都是单独的变量，如果单独的变量不多，还是建议一个一个得去交换单独的变量，因为如果你想操作地址…呵呵呵，请看上面，你都要考虑到。</p>
+<h3 id="对于两段代码的思考"><a href="#对于两段代码的思考" class="headerlink" title="对于两段代码的思考"></a>对于两段代码的思考</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// temp是首结点的地址</span></span><br><span class="line"><span class="keyword">while</span> (temp-&gt;Next != <span class="literal">NULL</span>)</span><br><span class="line">     temp = temp-&gt;Next;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// temp是首结点的地址</span></span><br><span class="line"><span class="keyword">while</span> (temp != <span class="literal">NULL</span>)</span><br><span class="line">     temp = temp-&gt;Next</span><br></pre></td></tr></table></figure>
+
+<p>在遍历链表的时候我有了个疑惑，这俩究竟有啥区别？？</p>
+<p>对于一个菜鸡来说，思考的过程无疑是痛苦的，所以，我痛苦了很久，想出来了</p>
+<p>然而，没什么好痛苦的，千万不要怀疑自己的智商，越怀疑越痛苦越是想不出来</p>
+<p>如果我不怀疑自己的话，也许= =   ， 一想就出来了。</p>
+<p>好了，建议拿出纸和笔来写写画画，研究一波。</p>
+<hr>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// temp是一个结点类型的指针变量，存储首结点的地址</span></span><br><span class="line"><span class="keyword">while</span> (temp-&gt;Next != <span class="literal">NULL</span>)</span><br><span class="line">     temp = temp-&gt;Next;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>这种判断方式可以理解为：先判当前结点的指针域（即下一个结点的地址）是不是NULL，若是，则指向下一个结点，否则指针的指向停在当前结点处。</p>
+</li>
+<li><p>由于是从第二个结点开始判断其是不是空指针NULL，因此会漏掉第一个结点，如果你的链表第一个结点的地址是一个空指针NULL，则会报错。</p>
+</li>
+<li><p><strong>最后是temp的值是尾结点的地址</strong></p>
+</li>
+</ul>
+<p>要注意，这种方法，当指针指向最后一个结点时，会直接终止，并不会对最后一个结点做任何操作</p>
+<p>如果想在while循环里记录最后一个结点的数据域，那么这个方法是行不通的</p>
+<p>它只可以得到最后一个结点的地址，如果想得到最后一个结点的数据域，需要在循环后面加上这样一段代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//  t 为存储数据域的中间变量</span></span><br><span class="line">t = temp-&gt;data</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// temp是一个结点类型的指针变量，存储首结点的地址</span></span><br><span class="line"><span class="keyword">while</span> (temp != <span class="literal">NULL</span>)</span><br><span class="line">     temp = temp-&gt;Next</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这种判断方式可以理解为: 先判断当前结点自身的地址是不是NULL，如果不是，令temp等于对指针域里的地址寻址得到的那个地址(简单说，就是将下一个结点的地址赋值给temp)，否则，指针的指向停在当前。</p>
+</li>
+<li><p>所以，当temp的值是末尾结点的地址的时候，它判断这个值(末尾结点的地址)是不是NULL，显然，不是，然后temp会被赋值为NULL，循环终止。</p>
+</li>
+<li><p>所以，<strong>最后temp的值是NULL</strong> , 这种办法得不到最后一个结点的地址, 但是可以在while循环里记录最后一个结点的数据域。不必像上边的代码一样等循环终止了再加上一段代码来记录。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数据结构-链表</category>
+      </categories>
+      <tags>
+        <tag>数据结构-链表</tag>
+      </tags>
+  </entry>
 </search>
