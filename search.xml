@@ -20,26 +20,6 @@
       </tags>
   </entry>
   <entry>
-    <title>EncryptedArticle</title>
-    <url>/2020/06/16/EncryptedArticle/</url>
-    <content><![CDATA[<p>Encrypted Article ! </p>
-<p>Please click the “Read All Test” below  and input the password.</p>
-<a id="more"></a>
-
-<hr>
-<p>还记得2016年的8月13号晚上，还有两天就要去武邑上学了，我…当时很想表达一下心里憋了挺久的想法，然后…我跟你开了个所谓的玩笑，也不知道你还记不记得那个玩笑呵呵呵，就当你还记得吧，说是玩笑，其实还是我当时怂了，说出去以后马上就又不敢承认了，当时还编造各种借口，来证明那只是一个玩笑。上了高中以后，高一寒假我又跟你重申了一下那是个玩笑，现在想起来都挺好笑的呵呵。</p>
-<p>也许你知道我当时是认真的，然后拒绝了我；也许你真的以为那是个玩笑。</p>
-<p>无论如何，现在，我承认，那是我的真心话，那时候是，现在也是。</p>
-<p>我们可以互相了解了解吗？</p>
-]]></content>
-      <categories>
-        <category>EncryptedArticle</category>
-      </categories>
-      <tags>
-        <tag>EncryptedArticle</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HDOJ 2092</title>
     <url>/2020/05/30/HDOJ-2092/</url>
     <content><![CDATA[<h3 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h3><p>有二个整数，它们加起来等于某个整数，乘起来又等于另一个整数，它们到底是真还是假，也就是这种整数到底存不存在，实在有点吃不准，你能快速回答吗？看来只能通过编程。<br>例如：<br>x + y = 9，x * y = 15 ? 找不到这样的整数x和y<br>1+4=5，1*4=4，所以，加起来等于5，乘起来等于4的二个整数为1和4<br>7+(-8)=-1，7*（-8）=-56，所以，加起来等于-1，乘起来等于-56的二个整数为7和-8</p>
@@ -80,6 +60,26 @@
       </categories>
       <tags>
         <tag>HDOJ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>EncryptedArticle</title>
+    <url>/2020/06/16/EncryptedArticle/</url>
+    <content><![CDATA[<p>Encrypted Article ! </p>
+<p>Please click the “Read All Test” below  and input the password.</p>
+<a id="more"></a>
+
+<hr>
+<p>还记得2016年的8月13号晚上，还有两天就要去武邑上学了，我…当时很想表达一下心里憋了挺久的想法，然后…我跟你开了个所谓的玩笑，也不知道你还记不记得那个玩笑，就当你还记得吧，说是玩笑，其实还是我当时怂了，说出去以后马上就又不敢承认了，当时还编造各种借口，来证明那只是一个玩笑。上了高中以后，高一寒假我又跟你重申了一下那是个玩笑，现在想起来都挺好笑的呵呵。</p>
+<p>也许你知道我当时是认真的，然后拒绝了我；也许你真的以为那是个玩笑。</p>
+<p>无论如何，现在，我承认，那是我的真心话，那时候是，现在也是。</p>
+<p>我们可以互相了解了解吗？</p>
+]]></content>
+      <categories>
+        <category>EncryptedArticle</category>
+      </categories>
+      <tags>
+        <tag>EncryptedArticle</tag>
       </tags>
   </entry>
   <entry>
