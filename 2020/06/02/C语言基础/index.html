@@ -79,14 +79,14 @@
 
 
 
-<meta name="description" content="在读入字符&#x2F;字符串时需要注意的问题 HDOJ 2091 一道水题，硬是给上了一课，主要还是C语言基础不扎实，对于字符&#x2F;字符串的的多次输入时应该注意的问题仍然理解不透彻，当我用我的一贯做法： stdlib.h 里的 fflush(stdin)来清理输入缓存区，得到的结果是 Output Limit Exceeded  ， T^T，明明效果是一样的，为什么过不了。后来用getchar()来清输入缓存区">
+<meta name="description" content="在读入字符&#x2F;字符串时需要注意的问题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C语言基础">
 <meta property="og:url" content="http://yoursite.com/2020/06/02/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="GenePaal&#39;s Blog">
-<meta property="og:description" content="在读入字符&#x2F;字符串时需要注意的问题 HDOJ 2091 一道水题，硬是给上了一课，主要还是C语言基础不扎实，对于字符&#x2F;字符串的的多次输入时应该注意的问题仍然理解不透彻，当我用我的一贯做法： stdlib.h 里的 fflush(stdin)来清理输入缓存区，得到的结果是 Output Limit Exceeded  ， T^T，明明效果是一样的，为什么过不了。后来用getchar()来清输入缓存区">
+<meta property="og:description" content="在读入字符&#x2F;字符串时需要注意的问题">
 <meta property="article:published_time" content="2020-06-02T12:04:46.000Z">
-<meta property="article:modified_time" content="2020-06-02T12:07:05.057Z">
+<meta property="article:modified_time" content="2020-06-16T10:57:15.725Z">
 <meta property="article:author" content="GenePaal">
 <meta property="article:tag" content="C语言基础">
 <meta name="twitter:card" content="summary">
@@ -386,7 +386,9 @@
       
 
       
-        <h3 id="在读入字符-字符串时需要注意的问题"><a href="#在读入字符-字符串时需要注意的问题" class="headerlink" title="在读入字符/字符串时需要注意的问题"></a>在读入字符/字符串时需要注意的问题</h3><blockquote>
+        <h3 id="在读入字符-字符串时需要注意的问题"><a href="#在读入字符-字符串时需要注意的问题" class="headerlink" title="在读入字符/字符串时需要注意的问题"></a>在读入字符/字符串时需要注意的问题</h3><a id="more"></a>
+
+<blockquote>
 <p>HDOJ 2091 一道水题，硬是给上了一课，主要还是C语言基础不扎实，对于字符/字符串的的多次输入时应该注意的问题仍然理解不透彻，当我用我的一贯做法： <code>stdlib.h</code> 里的 <code>fflush(stdin)</code>来清理输入缓存区，得到的结果是 Output Limit Exceeded  ， T^T，明明效果是一样的，为什么过不了。后来用<code>getchar()</code>来清输入缓存区，成功AC，目前还不知道这两个的原理究竟有何不同，有时间深挖一下。 </p>
 </blockquote>
 <ul>
@@ -523,7 +525,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -534,7 +536,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
