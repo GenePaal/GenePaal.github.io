@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Encrypted Article</title>
-    <url>/2020/06/16/ExpressMyMind/</url>
-    <content><![CDATA[<a id="more"></a>
-
-<p>还记得四年前的八月十三号晚上，还有两天就要去武邑上学了，我……想表达一下心里憋了挺久的想法，然后…….我跟你开了个所谓的玩笑，也不知道你还记不记得那个玩笑呵呵呵，就当你还记得吧，说是玩笑，其实还是我当时怂了，说出去以后马上就又不敢承认了，当时还编造各种借口，来证明那只是一个玩笑。上了高中以后，高一寒假我又跟你重申了一下那是个玩笑，现在想起来都挺好笑的呵呵。</p>
-<p>也许你知道我当时是认真的，然后拒绝了我；也许你真的以为那是个玩笑。</p>
-<p>无论如何，现在，我承认，那是我的真心话，那时候是，现在也是。</p>
-<p>所以，我们可以互相了解了解吗？</p>
-]]></content>
-  </entry>
-  <entry>
     <title>C语言基础</title>
     <url>/2020/06/02/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h3 id="在读入字符-字符串时需要注意的问题"><a href="#在读入字符-字符串时需要注意的问题" class="headerlink" title="在读入字符/字符串时需要注意的问题"></a>在读入字符/字符串时需要注意的问题</h3><blockquote>
@@ -28,6 +17,62 @@
       </categories>
       <tags>
         <tag>C语言基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Encrypted Article</title>
+    <url>/2020/06/16/ExpressMyMind/</url>
+    <content><![CDATA[<p>Encrypted Article ! </p>
+<p>Please click the “Read All Text” button below.</p>
+<a id="more"></a>
+
+<p>还记得四年前的八月十三号晚上，还有两天就要去武邑上学了，我……想表达一下心里憋了挺久的想法，然后…….我跟你开了个所谓的玩笑，也不知道你还记不记得那个玩笑呵呵呵，就当你还记得吧，说是玩笑，其实还是我当时怂了，说出去以后马上就又不敢承认了，当时还编造各种借口，来证明那只是一个玩笑。上了高中以后，高一寒假我又跟你重申了一下那是个玩笑，现在想起来都挺好笑的呵呵。</p>
+<p>也许你知道我当时是认真的，然后拒绝了我；也许你真的以为那是个玩笑。</p>
+<p>无论如何，现在，我承认，那是我的真心话，那时候是，现在也是。</p>
+<p>所以，我们可以互相了解了解吗？</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>HDOJ 2092</title>
+    <url>/2020/05/30/HDOJ-2092/</url>
+    <content><![CDATA[<h3 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h3><p>有二个整数，它们加起来等于某个整数，乘起来又等于另一个整数，它们到底是真还是假，也就是这种整数到底存不存在，实在有点吃不准，你能快速回答吗？看来只能通过编程。<br>例如：<br>x + y = 9，x * y = 15 ? 找不到这样的整数x和y<br>1+4=5，1*4=4，所以，加起来等于5，乘起来等于4的二个整数为1和4<br>7+(-8)=-1，7*（-8）=-56，所以，加起来等于-1，乘起来等于-56的二个整数为7和-8</p>
+<a id="more"></a>
+
+<h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><p>输入数据为成对出现的整数n，m（-10000&lt;n,m&lt;10000），它们分别表示整数的和与积，如果两者都为0，则输入结束。</p>
+<h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><p>只需要对于每个n和m，输出“Yes”或者“No”，明确有还是没有这种整数就行了。</p>
+<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">9 15</span><br><span class="line">5 4</span><br><span class="line">1 -56</span><br><span class="line">0 0</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">No</span><br><span class="line">Yes</span><br><span class="line">Yes</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><blockquote>
+<p>网上呢，大部分都是暴力枚举或者是解二次方程的方法，个人写了另外的一种解法（比较绕，情况比较多，细分下来有五种情况）</p>
+</blockquote>
+<p>这个题呢，说到底就是找 <code>y</code> 的因数，找到因数一切就都好办了。</p>
+<ul>
+<li>先来考虑<code>y</code>是正数的情况。一个正数的因数可以是两个负数，也可以是两个正数。<ul>
+<li><strong>操作1</strong> ：  如果<code>x</code>是正数，那么要找的满足条件的<code>y</code>的两个因数都是正数。从 1 开始遍历小于等于<code>sqrt(y)</code>（根号y）的所有正整数，依次找到<code>y</code>的因数，然后用<code>y</code>除以这个因数找到另一个因数。这样的话两个因数就找全了。再对两数之和是否等于<code>x</code>进行判断即可。</li>
+<li><strong>操作2</strong> ：  如果<code>x</code>是负数，那么要找的满足条件的<code>y</code>的两个因数都是负数，先进行操作1 找到两个正的因数，再判断这两个正的因数的和是否等于<code>-x</code>即可。</li>
+</ul>
+</li>
+<li>如果<code>y</code>是负数呢？当<code>y</code>是负数的时，只能拆成一个正因子一个负因子，但是也会有两种情况，比如 <code>-56</code>可以拆成 <code>-7 、 8</code>，也可以拆成<code>7 、-8</code>  ，在这里只要把   <code>y</code>是变成正数执行<strong>操作1</strong>，然后再给找到的两个因数分配负号即可。<strong>操作1</strong>进行结束以后，假设找到两个因数 <code>a</code> 和<code>b</code> ，然后分配负号，要么分配给<code>a</code>，要么分配给<code>b</code>，因此 <code>-a + b</code> 和   <code>a + (-b)</code>之间，只要满足有一个的和为<code>x</code>即满足题目条件。</li>
+<li>考虑完以上两种情况之后，还少一种情况，那就是<code>y = 0</code>时，<code>y</code> 是 <code>0</code> 的时候，<code>x</code>无论是什么值，必定存在这样的两个整数(一个是 0 ，另外一个的值等于x )满足题目的条件。</li>
+</ul>
+<hr>
+<h3 id="AC代码附上"><a href="#AC代码附上" class="headerlink" title="AC代码附上"></a>AC代码附上</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, n, m, flag1, flag2;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;m, &amp;n) &amp;&amp; (m || n))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        flag1 = <span class="number">1</span>;</span><br><span class="line">        flag2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            flag2 = <span class="number">1</span>;</span><br><span class="line">            n *= <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= <span class="built_in">sqrt</span>(n); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (n % i == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (flag2) <span class="comment">// 负数算法</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> ((i * (<span class="number">-1</span>) + n / i == m) || (i + (n / i) * (<span class="number">-1</span>) == m))</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"Yes"</span>);</span><br><span class="line">                        flag1 = <span class="number">0</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (!flag2) <span class="comment">// 正数算法</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (((i + n / i) == m) || ((i + n / i) == (<span class="number">-1</span>) * m))</span><br><span class="line">                    &#123;</span><br><span class="line">                        flag1 = <span class="number">0</span>;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"Yes"</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (flag1)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"No"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Program-lessons"><a href="#Program-lessons" class="headerlink" title="Program lessons ++"></a>Program lessons ++</h3><ul>
+<li>题目要求的printf形式是<code>Yes</code>和<code>No</code>，然而我在做这道题的时候printf的是<code>YES</code>和<code>NO</code>，导致一直无法AC，差点自闭。</li>
+<li>细节决定 A / W。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>HDOJ</category>
+      </categories>
+      <tags>
+        <tag>HDOJ</tag>
       </tags>
   </entry>
   <entry>
@@ -102,49 +147,6 @@
       </categories>
       <tags>
         <tag>数据结构-链表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HDOJ 2092</title>
-    <url>/2020/05/30/HDOJ-2092/</url>
-    <content><![CDATA[<h3 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h3><p>有二个整数，它们加起来等于某个整数，乘起来又等于另一个整数，它们到底是真还是假，也就是这种整数到底存不存在，实在有点吃不准，你能快速回答吗？看来只能通过编程。<br>例如：<br>x + y = 9，x * y = 15 ? 找不到这样的整数x和y<br>1+4=5，1*4=4，所以，加起来等于5，乘起来等于4的二个整数为1和4<br>7+(-8)=-1，7*（-8）=-56，所以，加起来等于-1，乘起来等于-56的二个整数为7和-8</p>
-<a id="more"></a>
-
-<h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><p>输入数据为成对出现的整数n，m（-10000&lt;n,m&lt;10000），它们分别表示整数的和与积，如果两者都为0，则输入结束。</p>
-<h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><p>只需要对于每个n和m，输出“Yes”或者“No”，明确有还是没有这种整数就行了。</p>
-<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">9 15</span><br><span class="line">5 4</span><br><span class="line">1 -56</span><br><span class="line">0 0</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">No</span><br><span class="line">Yes</span><br><span class="line">Yes</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><blockquote>
-<p>网上呢，大部分都是暴力枚举或者是解二次方程的方法，个人写了另外的一种解法（比较绕，情况比较多，细分下来有五种情况）</p>
-</blockquote>
-<p>这个题呢，说到底就是找 <code>y</code> 的因数，找到因数一切就都好办了。</p>
-<ul>
-<li>先来考虑<code>y</code>是正数的情况。一个正数的因数可以是两个负数，也可以是两个正数。<ul>
-<li><strong>操作1</strong> ：  如果<code>x</code>是正数，那么要找的满足条件的<code>y</code>的两个因数都是正数。从 1 开始遍历小于等于<code>sqrt(y)</code>（根号y）的所有正整数，依次找到<code>y</code>的因数，然后用<code>y</code>除以这个因数找到另一个因数。这样的话两个因数就找全了。再对两数之和是否等于<code>x</code>进行判断即可。</li>
-<li><strong>操作2</strong> ：  如果<code>x</code>是负数，那么要找的满足条件的<code>y</code>的两个因数都是负数，先进行操作1 找到两个正的因数，再判断这两个正的因数的和是否等于<code>-x</code>即可。</li>
-</ul>
-</li>
-<li>如果<code>y</code>是负数呢？当<code>y</code>是负数的时，只能拆成一个正因子一个负因子，但是也会有两种情况，比如 <code>-56</code>可以拆成 <code>-7 、 8</code>，也可以拆成<code>7 、-8</code>  ，在这里只要把   <code>y</code>是变成正数执行<strong>操作1</strong>，然后再给找到的两个因数分配负号即可。<strong>操作1</strong>进行结束以后，假设找到两个因数 <code>a</code> 和<code>b</code> ，然后分配负号，要么分配给<code>a</code>，要么分配给<code>b</code>，因此 <code>-a + b</code> 和   <code>a + (-b)</code>之间，只要满足有一个的和为<code>x</code>即满足题目条件。</li>
-<li>考虑完以上两种情况之后，还少一种情况，那就是<code>y = 0</code>时，<code>y</code> 是 <code>0</code> 的时候，<code>x</code>无论是什么值，必定存在这样的两个整数(一个是 0 ，另外一个的值等于x )满足题目的条件。</li>
-</ul>
-<hr>
-<h3 id="AC代码附上"><a href="#AC代码附上" class="headerlink" title="AC代码附上"></a>AC代码附上</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, n, m, flag1, flag2;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;m, &amp;n) &amp;&amp; (m || n))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        flag1 = <span class="number">1</span>;</span><br><span class="line">        flag2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            flag2 = <span class="number">1</span>;</span><br><span class="line">            n *= <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= <span class="built_in">sqrt</span>(n); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (n % i == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (flag2) <span class="comment">// 负数算法</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> ((i * (<span class="number">-1</span>) + n / i == m) || (i + (n / i) * (<span class="number">-1</span>) == m))</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"Yes"</span>);</span><br><span class="line">                        flag1 = <span class="number">0</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (!flag2) <span class="comment">// 正数算法</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (((i + n / i) == m) || ((i + n / i) == (<span class="number">-1</span>) * m))</span><br><span class="line">                    &#123;</span><br><span class="line">                        flag1 = <span class="number">0</span>;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"Yes"</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (flag1)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"No"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Program-lessons"><a href="#Program-lessons" class="headerlink" title="Program lessons ++"></a>Program lessons ++</h3><ul>
-<li>题目要求的printf形式是<code>Yes</code>和<code>No</code>，然而我在做这道题的时候printf的是<code>YES</code>和<code>NO</code>，导致一直无法AC，差点自闭。</li>
-<li>细节决定 A / W。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>HDOJ</category>
-      </categories>
-      <tags>
-        <tag>HDOJ</tag>
       </tags>
   </entry>
 </search>
