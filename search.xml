@@ -1,3 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
+  <entry>
+    <title>hello,world</title>
+    <url>/2020/06/24/hello-world/</url>
+    <content><![CDATA[<p>hello, wrold</p>
+]]></content>
+      <tags>
+        <tag>hello</tag>
+      </tags>
+  </entry>
 </search>
