@@ -22,7 +22,10 @@
   <entry>
     <title>RandomDuty</title>
     <url>/2020/09/12/RandomDuty/</url>
-    <content><![CDATA[<h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><ol>
+    <content><![CDATA[<p>为宿舍内公平值日设计的一个小程序（升级版），点击“阅读全文”查看源码以及使用说明</p>
+<a id="more"></a>
+
+<h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><ol>
 <li>编辑代码，根据本宿舍人名更改#define定义的8个成员名。</li>
 <li>创建一个<code>.txt</code>文件，在文件中键入数字0 <code>(不要有任何其它字符，例如空格，回车)</code></li>
 <li>将代码中 #define定义的FILELOCATION更改为你刚才创建的<code>.txt</code>文件的绝对路径</li>
