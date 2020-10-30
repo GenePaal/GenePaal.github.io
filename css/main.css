@@ -1460,6 +1460,9 @@ pre .javascript .function {
   word-break: break-word;
   font-weight: 400;
 }
+.archive-year {
+  font-size: 20px;
+}
 .posts-expand .post-title-link {
   font-size: 25px;
   display: inline-block;
@@ -1830,7 +1833,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #9375ff;
+  background: #ff555c;
 }
 .links-of-blogroll {
   font-size: 13px;
