@@ -1830,7 +1830,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #bf50d6;
+  background: #9375ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2389,9 +2389,6 @@ pre .javascript .function {
   .page-archive .archive-page-counter {
     top: 5px;
   }
-}
-.page-archive .posts-collapse {
-  font-size: 25px;
 }
 .page-archive .posts-collapse .archive-move-on {
   position: absolute;
