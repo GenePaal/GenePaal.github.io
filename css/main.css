@@ -1454,7 +1454,7 @@ pre .javascript .function {
 }
 .posts-expand .post-title {
   font-size: 20px;
-  line-height: 1.5;
+  line-height: 1.2;
   text-align: center;
   word-break: break-word;
   font-weight: 400;
@@ -1468,12 +1468,12 @@ pre .javascript .function {
   position: relative;
   color: #555;
   border-bottom: none;
-  line-height: 1.5;
+  line-height: 1.2;
   vertical-align: top;
 }
 .posts-expand .post-title-link::before {
   font-size: 20px;
-  line-height: 1.5;
+  line-height: 1.2;
   content: "";
   position: absolute;
   width: 100%;
@@ -1493,7 +1493,7 @@ pre .javascript .function {
 }
 .posts-expand .post-title-link:hover::before {
   font-size: 20px;
-  line-height: 1.5;
+  line-height: 1.2;
   visibility: visible;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
@@ -1832,7 +1832,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #f77aff;
+  background: #541bff;
 }
 .links-of-blogroll {
   font-size: 13px;
