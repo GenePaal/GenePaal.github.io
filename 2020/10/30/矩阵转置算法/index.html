@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="日常应用小程序," />
+  <meta name="keywords" content="稀疏矩阵转置," />
 
 
 
@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="为宿舍内公平值日设计的一个小程序（手动滑稽），点击“阅读全文”查看源码以及使用说明">
+<meta name="description" content="稀疏矩阵的转置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="339随机值日小程序源码">
-<meta property="og:url" content="http://yoursite.com/2020/09/04/339%E9%9A%8F%E6%9C%BA%E5%80%BC%E6%97%A5%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%BA%90%E7%A0%81/index.html">
+<meta property="og:title" content="稀疏矩阵转置">
+<meta property="og:url" content="http://yoursite.com/2020/10/30/%E7%9F%A9%E9%98%B5%E8%BD%AC%E7%BD%AE%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="GenePaal&#39;s Blog">
-<meta property="og:description" content="为宿舍内公平值日设计的一个小程序（手动滑稽），点击“阅读全文”查看源码以及使用说明">
-<meta property="article:published_time" content="2020-09-04T02:25:23.000Z">
-<meta property="article:modified_time" content="2020-09-23T09:57:19.027Z">
+<meta property="og:description" content="稀疏矩阵的转置">
+<meta property="article:published_time" content="2020-10-30T06:38:52.000Z">
+<meta property="article:modified_time" content="2020-10-30T06:40:41.783Z">
 <meta property="article:author" content="GenePaal">
-<meta property="article:tag" content="日常应用小程序">
+<meta property="article:tag" content="稀疏矩阵转置">
 <meta name="twitter:card" content="summary">
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/09/04/339随机值日小程序源码/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/10/30/矩阵转置算法/"/>
 
 
 
 
 
-  <title>339随机值日小程序源码 | GenePaal's Blog</title>
+  <title>稀疏矩阵转置 | GenePaal's Blog</title>
   
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/04/339%E9%9A%8F%E6%9C%BA%E5%80%BC%E6%97%A5%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%BA%90%E7%A0%81/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/30/%E7%9F%A9%E9%98%B5%E8%BD%AC%E7%BD%AE%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GenePaal">
@@ -314,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">339随机值日小程序源码</h1>
+          <h1 class="post-title" itemprop="name headline">稀疏矩阵转置</h1>
         
 
         <div class="post-meta">
@@ -326,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-04T10:25:23+08:00">
-                2020-09-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-30T14:38:52+08:00">
+                2020-10-30
               </time>
             
 
@@ -349,8 +349,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E5%B8%B8%E5%BA%94%E7%94%A8%E5%B0%8F%E7%A8%8B%E5%BA%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">日常应用小程序</span>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
                   </a>
                 </span>
 
@@ -386,16 +386,10 @@
       
 
       
-        <p>为宿舍内公平值日设计的一个小程序（手动滑稽），点击“阅读全文”查看源码以及使用说明    </p>
+        <p>稀疏矩阵的转置</p>
 <a id="more"></a>
 
-<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><ol>
-<li>直接将下面的代码复制到C语言编译器里运行即可</li>
-<li>每个人摇到几号，则周几值日，摇到8号的不用值日</li>
-</ol>
-<h2 id="源码附上"><a href="#源码附上" class="headerlink" title="源码附上"></a>源码附上</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max 20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">member</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> name[<span class="built_in">max</span>];</span><br><span class="line">    <span class="keyword">int</span> number;</span><br><span class="line">&#125; Member;</span><br><span class="line"></span><br><span class="line">Member arr[<span class="built_in">max</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s = <span class="number">0</span>, j, i, flag, t;</span><br><span class="line">    <span class="built_in">strcpy</span>(arr[<span class="number">0</span>].name, <span class="string">"曹曾超"</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(arr[<span class="number">1</span>].name, <span class="string">"王梓臣"</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(arr[<span class="number">2</span>].name, <span class="string">"贾金澎"</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(arr[<span class="number">3</span>].name, <span class="string">"安凯晨"</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(arr[<span class="number">4</span>].name, <span class="string">"李艾兴"</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(arr[<span class="number">5</span>].name, <span class="string">"李政尧"</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(arr[<span class="number">6</span>].name, <span class="string">"郭艺萌"</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(arr[<span class="number">7</span>].name, <span class="string">"郝龙祥"</span>);</span><br><span class="line">    srand(time(<span class="literal">NULL</span>));</span><br><span class="line">    <span class="keyword">while</span> (s != <span class="number">8</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        flag = <span class="number">1</span>;</span><br><span class="line">        j = rand() % <span class="number">8</span>;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; s; i++)</span><br><span class="line">            <span class="keyword">if</span> (arr[i].number == j)</span><br><span class="line">            &#123;</span><br><span class="line">                flag = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span> (flag)</span><br><span class="line">        &#123;</span><br><span class="line">            arr[s].number = j;</span><br><span class="line">            s++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d   %s\n"</span>, arr[i].number + <span class="number">1</span>, arr[i].name);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_LENGTH 100</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个用来表示非零元素的结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">a</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="comment">// 非零元素的行下标</span></span><br><span class="line">    <span class="keyword">int</span> rowIndex;</span><br><span class="line">    <span class="comment">// 非零元素的列下标</span></span><br><span class="line">    <span class="keyword">int</span> colIndex;</span><br><span class="line">    <span class="comment">// 非零元素的值</span></span><br><span class="line">    <span class="keyword">int</span> number;</span><br><span class="line"></span><br><span class="line">&#125; NotZeroMember;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个表示矩阵的结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">b</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="comment">// 开一个数组用于存储非零元素</span></span><br><span class="line">    NotZeroMember <span class="built_in">array</span>[MAX_LENGTH];</span><br><span class="line">    <span class="comment">// 数组长度 即该矩阵中非零元素的个数</span></span><br><span class="line">    <span class="keyword">int</span> arrayLength;</span><br><span class="line">    <span class="comment">// 矩阵的行数和列数</span></span><br><span class="line">    <span class="keyword">int</span> rows, cols;</span><br><span class="line"></span><br><span class="line">&#125; Matrix;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 开一个稀疏矩阵</span></span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">5</span>][<span class="number">7</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">6</span>,</span><br><span class="line">                     <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>,</span><br><span class="line">                     <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,</span><br><span class="line">                     <span class="number">0</span>, <span class="number">9</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">0</span>,</span><br><span class="line">                     <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">8</span>&#125;;</span><br><span class="line">    <span class="comment">// 将稀疏矩阵压缩</span></span><br><span class="line"></span><br><span class="line">    Matrix matrix;</span><br><span class="line">    matrix.rows = <span class="number">5</span>;</span><br><span class="line">    matrix.cols = <span class="number">7</span>;</span><br><span class="line">    matrix.arrayLength = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">7</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i][j] != <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 行</span></span><br><span class="line">                matrix.<span class="built_in">array</span>[++matrix.arrayLength].rowIndex = i + <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 列</span></span><br><span class="line">                matrix.<span class="built_in">array</span>[matrix.arrayLength].colIndex = j + <span class="number">1</span>;</span><br><span class="line">                matrix.<span class="built_in">array</span>[matrix.arrayLength].number = arr[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= matrix.arrayLength; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d行  %d列  元素值：%d\n"</span>, matrix.<span class="built_in">array</span>[i].rowIndex,</span><br><span class="line">               matrix.<span class="built_in">array</span>[i].colIndex, matrix.<span class="built_in">array</span>[i].number);</span><br><span class="line">    <span class="comment">// 开始转置矩阵</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// num数组用于记录原矩阵每列有几个非0元素</span></span><br><span class="line">    <span class="comment">// num数组中对应的下标就是对应的列序号</span></span><br><span class="line">    <span class="keyword">int</span> num[matrix.cols + <span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= matrix.arrayLength; i++)</span><br><span class="line">        num[matrix.<span class="built_in">array</span>[i].colIndex]++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= matrix.cols; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"第 %d 列有 %d 个非零元素\n"</span>, i, num[i]);</span><br><span class="line">    <span class="comment">// location 数组用于记录转置前每列的首个非零元素(即转置后每行的首个非0元素)</span></span><br><span class="line">    <span class="comment">// 在转置以后的被压缩以后的数组里的下标</span></span><br><span class="line">    <span class="keyword">int</span> location[matrix.cols + <span class="number">1</span>] = &#123;<span class="number">0</span>, <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= matrix.cols; i++)</span><br><span class="line">        location[i] = location[i - <span class="number">1</span>] + num[i - <span class="number">1</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"location数组:\n"</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= matrix.cols; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, location[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="comment">// 数组转置</span></span><br><span class="line">    Matrix comperssedMatrix;</span><br><span class="line">    comperssedMatrix.cols = matrix.rows;</span><br><span class="line">    comperssedMatrix.rows = matrix.cols;</span><br><span class="line">    comperssedMatrix.arrayLength = matrix.arrayLength;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= matrix.arrayLength; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> t = location[matrix.<span class="built_in">array</span>[i].colIndex];</span><br><span class="line">        comperssedMatrix.<span class="built_in">array</span>[t].number = matrix.<span class="built_in">array</span>[i].number;</span><br><span class="line">        comperssedMatrix.<span class="built_in">array</span>[t].colIndex = matrix.<span class="built_in">array</span>[i].rowIndex;</span><br><span class="line">        comperssedMatrix.<span class="built_in">array</span>[t].rowIndex = matrix.<span class="built_in">array</span>[i].colIndex;</span><br><span class="line">        location[matrix.<span class="built_in">array</span>[i].colIndex]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= comperssedMatrix.arrayLength; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d行  %d列  元素值：%d\n"</span>, comperssedMatrix.<span class="built_in">array</span>[i].rowIndex,</span><br><span class="line">               comperssedMatrix.<span class="built_in">array</span>[i].colIndex, comperssedMatrix.<span class="built_in">array</span>[i].number);</span><br><span class="line">    <span class="keyword">int</span> index = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 打印原来的数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">7</span>; j++)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d   "</span>, arr[i][j]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"================\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"-----转置后-----\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"================\n"</span>);</span><br><span class="line">    <span class="comment">// 打印转置后的数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= comperssedMatrix.rows; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= comperssedMatrix.cols; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(i == comperssedMatrix.<span class="built_in">array</span>[index].rowIndex &amp;&amp; j == comperssedMatrix.<span class="built_in">array</span>[index].rowIndex)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d   "</span>, comperssedMatrix.<span class="built_in">array</span>[index].number);</span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"0   "</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -414,8 +408,8 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E6%97%A5%E5%B8%B8%E5%BA%94%E7%94%A8%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"><i class="fa fa-tag"><!--��#����ͼ�α�ǩ<i class="fa fa-tag"></i>--></i>
- 日常应用小程序</a>
+            <a href="/tags/%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5%E8%BD%AC%E7%BD%AE/" rel="tag"><i class="fa fa-tag"><!--��#����ͼ�α�ǩ<i class="fa fa-tag"></i>--></i>
+ 稀疏矩阵转置</a>
           
         </div>
       
@@ -428,8 +422,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/07/01/%E9%93%BE%E8%A1%A8%E9%A1%B9%E7%9B%AE-%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="next" title="学生信息管理系统">
-                <i class="fa fa-chevron-left"></i> 学生信息管理系统
+              <a href="/2020/10/27/KMP/" rel="next" title="KMP">
+                <i class="fa fa-chevron-left"></i> KMP
               </a>
             
           </div>
@@ -437,10 +431,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/09/12/RandomDuty/" rel="prev" title="RandomDuty">
-                RandomDuty <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -492,17 +482,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -560,22 +541,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用说明"><span class="nav-number">1.</span> <span class="nav-text">使用说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码附上"><span class="nav-number">2.</span> <span class="nav-text">源码附上</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
