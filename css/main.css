@@ -1453,7 +1453,7 @@ pre .javascript .function {
   display: none;
 }
 .posts-expand .post-title {
-  font-size: 25px;
+  font-size: 20px;
   line-height: 1.5;
   text-align: center;
   word-break: break-word;
@@ -1463,7 +1463,7 @@ pre .javascript .function {
   font-size: 20px;
 }
 .posts-expand .post-title-link {
-  font-size: 25px;
+  font-size: 20px;
   display: inline-block;
   position: relative;
   color: #555;
@@ -1472,7 +1472,7 @@ pre .javascript .function {
   vertical-align: top;
 }
 .posts-expand .post-title-link::before {
-  font-size: 25px;
+  font-size: 20px;
   line-height: 1.5;
   content: "";
   position: absolute;
@@ -1492,7 +1492,7 @@ pre .javascript .function {
   transition-delay: 0s;
 }
 .posts-expand .post-title-link:hover::before {
-  font-size: 25px;
+  font-size: 20px;
   line-height: 1.5;
   visibility: visible;
   -webkit-transform: scaleX(1);
@@ -1832,7 +1832,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff40ff;
+  background: #38ff58;
 }
 .links-of-blogroll {
   font-size: 13px;
