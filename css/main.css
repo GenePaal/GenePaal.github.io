@@ -1055,7 +1055,6 @@ pre .javascript .function {
 .tag-cloud a {
   display: inline-block;
   margin: 10px;
-  fony-size: 16px;
 }
 .back-to-top {
   box-sizing: border-box;
@@ -1837,7 +1836,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #3cfb09;
+  background: #b8ffe4;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2602,6 +2601,9 @@ post-title {
 }
 .page-post-detail .comments {
   overflow: hidden;
+}
+.tag-cloud-tags {
+  font-size: 16px;
 }
 h1,
 h2,
