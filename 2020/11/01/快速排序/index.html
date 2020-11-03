@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="GenePaal">
 <meta property="og:description" content="快速排序，分治递归">
 <meta property="article:published_time" content="2020-11-01T13:45:34.000Z">
-<meta property="article:modified_time" content="2020-11-01T13:49:27.293Z">
+<meta property="article:modified_time" content="2020-11-03T08:17:22.323Z">
 <meta property="article:author" content="GenePaal">
 <meta property="article:tag" content="快速排序">
 <meta name="twitter:card" content="summary">
@@ -391,6 +391,22 @@
 
 <a id="more"></a>
 
+<h3 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h3><p><strong>分治(二分)递归</strong></p>
+<p>取一个标准值，将比标准值小的放在标准值前，比标准值大的放在标准值后。 此操作视为进行了一次快排</p>
+<p>然后对标准值前面的子数列和标准值后面的子数列分别进行快排，就这样通过调用递归函数不断地二分…直到第一步快排得到的前面的子数列在不断二分过程中得到的最后一个子数列的标准值和<code>begin</code>相等为止。</p>
+<p>二分递归比较难理解，建议在纸上演算一下，整个二分递归的过程就清晰可见了。</p>
+<h3 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h3><ol>
+<li>取乱序数组的第一个值，作为标准值<code>flag</code></li>
+<li>设两个指针<code>begin</code>, <code>end</code> 分别指向数组的第一个元素和最后一个元素</li>
+<li>在头尾指针不碰头的情况下，第四步操作和第五步操作一先以后循环执行</li>
+<li>末尾指针<code>end</code>向前寻找比标准值<code>flag</code>小的数，找到以后让<code>begin</code>指向的数等于这个比<code>flag</code>小的数，在尾指针向前扫描找比<code>flag</code>小的数的期间如果<code>end</code>和<code>begin</code>碰头了，那么终止程序视为已经完成了一次快排</li>
+<li>头指针<code>begin</code>向后寻找比标准值<code>flag</code>大的数，找到以后让<code>end</code>指向的数等于这个比<code>flag</code>大的数</li>
+<li>回到第三步判断</li>
+<li>第三步和第四、五步中都有对 <code>begin</code>和<code>end</code>是否碰头的判断，不论是在哪一步里碰头，只要碰头就说明一次快排即将结束，但是还少了一步，那就是要将<code>flag</code>要放在最后<code>begin</code>和<code>end</code>重合的位置。   </li>
+<li>对<code>flag</code>前面的数进行快排，对<code>flag</code>后面的数进行快排，快排之后又会得到<code>flag</code>…然后继续快排，在递归二分的过程中，前半部分的数列的开始位置始终是原数列的<code>begin</code>， 子数列的结束位置是原数列中索引为<code>上次快排得到的flag的值 - 1</code>，结束后半部分的数列结束的部分始终是原数列的<code>end</code>，子数列的开始位置是原数列中索引为<code>上次快排得到的flag的值 + 1</code></li>
+<li>二分递归…</li>
+<li>直到第一步快排得到的前面的子数列在不断二分过程中得到的最后一个子数列的标准值和<code>begin</code>相等为止。</li>
+</ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LENGTH 10</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">single</span><span class="params">(<span class="keyword">int</span> *, <span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">all</span><span class="params">(<span class="keyword">int</span> *, <span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printArray</span><span class="params">(<span class="keyword">int</span> *)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">20</span>] = &#123;<span class="number">5</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">9</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    srand(time(<span class="literal">NULL</span>));</span><br><span class="line">    <span class="comment">// 数组的下标为0的位置用于存界值flag</span></span><br><span class="line">    <span class="comment">// 数组长度为10</span></span><br><span class="line">    </span><br><span class="line">    printArray(arr);</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">begin</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">end</span> = <span class="number">9</span>;</span><br><span class="line">    all(arr, <span class="built_in">begin</span>, <span class="built_in">end</span>);</span><br><span class="line">    printArray(arr);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印数组</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printArray</span><span class="params">(<span class="keyword">int</span> *arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; LENGTH; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, arr[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 总排序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">all</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> <span class="built_in">begin</span>, <span class="keyword">int</span> <span class="built_in">end</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d \n"</span>, <span class="built_in">begin</span>, <span class="built_in">end</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">begin</span> &lt; <span class="built_in">end</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> flag = single(arr, <span class="built_in">begin</span>, <span class="built_in">end</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, flag);</span><br><span class="line">        <span class="comment">// 递归</span></span><br><span class="line">        all(arr, <span class="built_in">begin</span>, flag - <span class="number">1</span>);</span><br><span class="line">        all(arr, flag + <span class="number">1</span>, <span class="built_in">end</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 单个排序</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">single</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> <span class="built_in">begin</span>, <span class="keyword">int</span> <span class="built_in">end</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 将第一个元素记为flag</span></span><br><span class="line">    <span class="keyword">int</span> flag = arr[<span class="built_in">begin</span>];</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">begin</span> != <span class="built_in">end</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="built_in">begin</span> &lt; <span class="built_in">end</span> &amp;&amp; arr[<span class="built_in">end</span>] &gt;= flag)</span><br><span class="line">            <span class="built_in">end</span>--;</span><br><span class="line">        arr[<span class="built_in">begin</span>] = arr[<span class="built_in">end</span>];</span><br><span class="line">        <span class="keyword">while</span> (<span class="built_in">begin</span> &lt; <span class="built_in">end</span> &amp;&amp; arr[<span class="built_in">begin</span>] &lt;= flag)</span><br><span class="line">            <span class="built_in">begin</span>++;</span><br><span class="line">        arr[<span class="built_in">end</span>] = arr[<span class="built_in">begin</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    arr[<span class="built_in">end</span>] = flag;</span><br><span class="line">    printArray(arr);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">end</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -484,8 +500,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -563,6 +588,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#主要思想"><span class="nav-number">1.</span> <span class="nav-text">主要思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行流程"><span class="nav-number">2.</span> <span class="nav-text">执行流程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
