@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="GenePaal">
 <meta property="og:description" content="快速排序，分治递归">
 <meta property="article:published_time" content="2020-11-01T13:45:34.000Z">
-<meta property="article:modified_time" content="2020-11-03T08:33:26.536Z">
+<meta property="article:modified_time" content="2020-11-03T13:54:09.331Z">
 <meta property="article:author" content="GenePaal">
 <meta property="article:tag" content="快速排序">
 <meta name="twitter:card" content="summary">
@@ -398,7 +398,7 @@
 <h3 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h3><ol>
 <li>取乱序数组的第一个值，作为标准值<code>flag</code></li>
 <li>设两个指针<code>begin</code>, <code>end</code> 分别指向数组的第一个元素和最后一个元素</li>
-<li>在头尾指针不碰头的情况下，第四步操作和第五步操作一先以后循环执行</li>
+<li>在<code>头尾指针不碰头</code>的情况下，第四步操作和第五步操作一先一后循环执行</li>
 <li>末尾指针<code>end</code>向前寻找比标准值<code>flag</code>小的数，找到以后让<code>begin</code>指向的数等于这个比<code>flag</code>小的数，在尾指针向前扫描找比<code>flag</code>小的数的期间如果<code>end</code>和<code>begin</code>碰头了，那么终止程序视为已经完成了一次快排</li>
 <li>头指针<code>begin</code>向后寻找比标准值<code>flag</code>大的数，找到以后让<code>end</code>指向的数等于这个比<code>flag</code>大的数</li>
 <li>回到第三步判断</li>
