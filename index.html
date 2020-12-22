@@ -296,6 +296,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/22/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GenePaal">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GenePaal">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/12/22/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/" itemprop="url">二分搜索</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-22T20:25:07+08:00">
+                2020-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <center>二分搜索，写的时候和快排做了一波对比，还是有一些收获的</center>
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 二分搜索</span></span><br><span class="line"><span class="comment">// 二分搜索不同于快排中的二分递归，</span></span><br><span class="line"><span class="comment">// 二分搜索路径只有一条，只要找到头就可以了</span></span><br><span class="line"><span class="comment">// 而快排中的二分需要全覆盖(因为是要对整个数组进行排序)</span></span><br><span class="line"><span class="comment">// 这也是为什么二分搜索不使用递归也可以很轻松地实现</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 递归写法和非递归写法</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LENGTH 10</span></span><br><span class="line"><span class="comment">// 查找目标</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TARGET 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 递归写法</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarySearch1</span><span class="params">(<span class="keyword">int</span> *, <span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="comment">// 循环写法</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarySearch2</span><span class="params">(<span class="keyword">int</span> *, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 初始化待查找的数组</span></span><br><span class="line">	<span class="comment">// 数组的0号空间不使用</span></span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">11</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> index = binarySearch1(arr, <span class="number">1</span>, LENGTH, TARGET);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"递归写法得到的%d的下标: %d\n"</span>, TARGET, index);</span><br><span class="line">	index = binarySearch2(arr, TARGET);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"循环写法得到的%d的下标: %d\n"</span>, TARGET, index);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 递归写法</span></span><br><span class="line"><span class="comment">// 参数为数组首地址，每次二分的起始位置和终止位置， 查找值</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarySearch1</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> <span class="built_in">begin</span>, <span class="keyword">int</span> <span class="built_in">end</span>, <span class="keyword">int</span> target)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">begin</span> &gt; <span class="built_in">end</span>) </span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	<span class="comment">// 中间界值的下标</span></span><br><span class="line">	<span class="keyword">int</span> middleIndex = (<span class="built_in">begin</span> + <span class="built_in">end</span>) / <span class="number">2</span>;</span><br><span class="line">	<span class="comment">// 中间界值</span></span><br><span class="line">	<span class="keyword">int</span> middleValue = arr[middleIndex];</span><br><span class="line">	<span class="keyword">if</span> (target &gt; middleValue)  <span class="comment">// 在界值右边</span></span><br><span class="line">		binarySearch1(arr, middleIndex + <span class="number">1</span>, <span class="built_in">end</span>, target);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(target &lt; middleValue) <span class="comment">// 在界值左边</span></span><br><span class="line">		binarySearch1(arr, <span class="built_in">begin</span>, middleIndex - <span class="number">1</span>, target);</span><br><span class="line">	<span class="keyword">else</span> <span class="comment">// 等于界值，直接返回界值的下标</span></span><br><span class="line">		<span class="keyword">return</span> middleIndex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 循环写法</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarySearch2</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> target)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 开始下标和结束下标</span></span><br><span class="line">	<span class="keyword">int</span> <span class="built_in">begin</span> = <span class="number">1</span>, <span class="built_in">end</span> = LENGTH;</span><br><span class="line">	<span class="keyword">while</span> (<span class="built_in">begin</span> &lt; <span class="built_in">end</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// 中间位置下标</span></span><br><span class="line">		<span class="keyword">int</span> middleIndex = (<span class="built_in">begin</span> + <span class="built_in">end</span>) / <span class="number">2</span>;</span><br><span class="line">		<span class="comment">// 中间值</span></span><br><span class="line">		<span class="keyword">int</span> middleValue = arr[middleIndex];</span><br><span class="line">		<span class="keyword">if</span> (target &gt; middleValue)</span><br><span class="line">			<span class="built_in">begin</span> = middleIndex + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(target &lt; middleValue)</span><br><span class="line">			<span class="built_in">end</span> = middleIndex - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> </span><br><span class="line">			<span class="keyword">return</span> middleIndex;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/22/%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1594,153 +1742,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/22/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GenePaal">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GenePaal">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/10/22/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/" itemprop="url">循环队列</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-22T21:14:05+08:00">
-                2020-10-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>循环队列，底层内存结构：静态数组</p>
-<p>灵魂思想: 将指针的自增改为   <code>指针 = (指针+ 1) % (数组的真实长度)</code></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/10/22/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1793,7 +1794,7 @@
             
               <div class="site-state-item site-state-posts">
                 <a href="/archives">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1815,7 +1816,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
