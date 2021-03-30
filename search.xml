@@ -740,7 +740,11 @@
   <entry>
     <title>Java代码执行顺序</title>
     <url>/2021/03/30/Java%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</url>
-    <content><![CDATA[<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><ol>
+    <content><![CDATA[<center>Java源文件中代码的加载顺序</center>
+
+<a id="more"></a>
+
+<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><ol>
 <li>对类的加载</li>
 </ol>
 <ul>
