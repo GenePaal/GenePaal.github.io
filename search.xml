@@ -737,4 +737,34 @@
         <tag>博客迁移</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Java代码执行顺序</title>
+    <url>/2021/03/30/Java%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</url>
+    <content><![CDATA[<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><ol>
+<li>对类的加载</li>
+</ol>
+<ul>
+<li>加载类的方法和静态属性 为方法和静态属性分配空间</li>
+<li>按照静态代码块和静态属性定义语句 在源文件中的顺序执行静态代码块中的操作和对属性的初始化(初始化默认赋0、null等)</li>
+</ul>
+<ol start="2">
+<li>加载对象</li>
+</ol>
+<ul>
+<li>当一个对象被初始化时，为对象开辟空间，给对象的非静态属性分配空间(不包括静态属性，静态属性属于类)</li>
+<li>按照非静态属性定义语句和非静态代码块在源文件中的顺序执行对非静态属性的初始化和非静态代码块中的操作</li>
+<li>执行构造方法</li>
+</ul>
+<h3 id="学习执行顺序的时候顺便复习了一下static"><a href="#学习执行顺序的时候顺便复习了一下static" class="headerlink" title="学习执行顺序的时候顺便复习了一下static"></a>学习执行顺序的时候顺便复习了一下<code>static</code></h3><p>静态成员方法的用处</p>
+<ul>
+<li>可以访问、修改静态变量，尤其是类的私有静态属性，如果类的静态属性是私有的，如果不设静态成员方法，那么在类外就无法访问这个私有静态属性了</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JavaBase</category>
+      </categories>
+      <tags>
+        <tag>JavaBase</tag>
+      </tags>
+  </entry>
 </search>
