@@ -777,8 +777,8 @@
     <content><![CDATA[<h2 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h2><p>作为外部类的一个成员存在，与类的属性，方法并列</p>
 <p>成员内部类中不能定义静态成员</p>
 <h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><p>代码：</p>
-<p><img src="F:%5CTyporaPicture%5C1.png" alt="image-20210403154912847"></p>
-<p>实质：<br><img src="F:%5CTyporaPicture%5C2.png" alt="image-20210403161307364"></p>
+<p><img src="F:.Blog%5Csource_posts%5Cpost-name%5C1.png" alt="image-20210403154912847"></p>
+<p>实质：<br><img src="F:.Blog%5Csource_posts%5Cpost-name%5C2.png" alt="image-20210403161307364"></p>
 <p>在第二张图中，MyContents就是那个第一张代码图片中没有出现的匿名类</p>
 <p>原理：创建一个继承自Contents的匿名类的对象，通过new表达式返回的引用被自动向上 转型为对Contents的引用</p>
 <p>在这里 Contents是外部已写好的一个接口，  <code>new Contents() { .... }</code> 看似是要给一个接口实例化对象要报错，其实不然，这并不是给一个接口实例化对象，而是给继承了这个接口的一个内部类实例化一次对象，所以返回值是实现了Contents接口的一个匿名类的一个对象，该匿名类只会有一个对象，就是在定义的时候，顺便new一个出来。</p>
