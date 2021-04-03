@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="随笔," />
+  <meta name="keywords" content="Java内部类," />
 
 
 
@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="回顾2020 展望2021">
+<meta name="description" content="成员内部类作为外部类的一个成员存在，与类的属性，方法并列 成员内部类中不能定义静态成员 匿名内部类代码：  实质： 在第二张图中，MyContents就是那个第一张代码图片中没有出现的匿名类 原理：创建一个继承自Contents的匿名类的对象，通过new表达式返回的引用被自动向上 转型为对Contents的引用 在这里 Contents是外部已写好的一个接口，  new Contents() {">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello, 2021">
-<meta property="og:url" content="http://yoursite.com/2021/01/01/Hello-2021/index.html">
+<meta property="og:title" content="内部类2">
+<meta property="og:url" content="http://yoursite.com/2021/04/03/%E5%86%85%E9%83%A8%E7%B1%BB2/index.html">
 <meta property="og:site_name" content="GenePaal">
-<meta property="og:description" content="回顾2020 展望2021">
-<meta property="article:published_time" content="2021-01-01T08:27:54.000Z">
-<meta property="article:modified_time" content="2021-01-02T15:17:26.655Z">
+<meta property="og:description" content="成员内部类作为外部类的一个成员存在，与类的属性，方法并列 成员内部类中不能定义静态成员 匿名内部类代码：  实质： 在第二张图中，MyContents就是那个第一张代码图片中没有出现的匿名类 原理：创建一个继承自Contents的匿名类的对象，通过new表达式返回的引用被自动向上 转型为对Contents的引用 在这里 Contents是外部已写好的一个接口，  new Contents() {">
+<meta property="og:image" content="http://yoursite.com/2021/04/03/%E5%86%85%E9%83%A8%E7%B1%BB2/%E5%86%85%E9%83%A8%E7%B1%BB2/1.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/03/%E5%86%85%E9%83%A8%E7%B1%BB2/%E5%86%85%E9%83%A8%E7%B1%BB2/2.png">
+<meta property="article:published_time" content="2021-04-03T08:57:14.000Z">
+<meta property="article:modified_time" content="2021-04-03T08:59:11.139Z">
 <meta property="article:author" content="GenePaal">
-<meta property="article:tag" content="随笔">
+<meta property="article:tag" content="Java内部类">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/04/03/%E5%86%85%E9%83%A8%E7%B1%BB2/%E5%86%85%E9%83%A8%E7%B1%BB2/1.png">
 
 
 
@@ -119,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/01/01/Hello-2021/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/04/03/内部类2/"/>
 
 
 
 
 
-  <title>Hello, 2021 | GenePaal</title>
+  <title>内部类2 | GenePaal</title>
   
 
 
@@ -298,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/01/Hello-2021/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/03/%E5%86%85%E9%83%A8%E7%B1%BB2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GenePaal">
@@ -315,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello, 2021</h1>
+          <h1 class="post-title" itemprop="name headline">内部类2</h1>
         
 
         <div class="post-meta">
@@ -327,8 +330,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-01T16:27:54+08:00">
-                2021-01-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-03T16:57:14+08:00">
+                2021-04-03
               </time>
             
 
@@ -350,8 +353,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
+                  <a href="/categories/Java%E5%86%85%E9%83%A8%E7%B1%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">Java内部类</span>
                   </a>
                 </span>
 
@@ -387,15 +390,14 @@
       
 
       
-        <center>回顾2020 展望2021</center>
-
-<a id="more"></a>
-
-<p></br>2020结束了，其实本来也没打算写点什么感悟，然后发空间啊发朋友圈啊什么的，后来想想还是写点吧，发自己博客上，这个博客除了我应该也不会有人看吧，hh</p>
-<p>大学从来没有好好地学过一个东西，刚学会一点就觉得自己牛哄哄的，尾巴就飘上天了，还有就是感情，周期性地想情爱，周期性地tmd想搞女朋友，到最后也就是空空地在那里网抑云，耽误了时间耽误了精力，还整的自己精神状态非常不好，这是图了个啥。</p>
-<p>2020年，自己始终没有从情爱中走出来，还是不能专注于自己的事业，虽然在学院里自己算得上是一名所谓的优秀的学生，学到了点东西，但是自己还是不行，做事情不专注，三心二意，也只有在中间的一段时间里，好好学了，然后仔细思考了，然后就是对他吗情爱的向往，最后依然单身，有个p用</p>
-<p>希望在2021年，自己能一心一意地专注于自己的学业，暂时不要过多得去想情爱这个事情，思想单纯一些一心一意地去写代码搞事情，或许当你一心一意编程学习的时候，爱情就不请自来了呢hhh </p>
-<p>就这样吧，2020年，虽然经常会三心二意为情爱所困，但是在不为它所困的时间里我还是学到了很多东西，写了不少算法代码，编程功底还是提高了不少。emm…就这样吧。</p>
+        <h2 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h2><p>作为外部类的一个成员存在，与类的属性，方法并列</p>
+<p>成员内部类中不能定义静态成员</p>
+<h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><p>代码：</p>
+<p><img src="./%E5%86%85%E9%83%A8%E7%B1%BB2/1.png" alt=""></p>
+<p>实质：<br><img src="./%E5%86%85%E9%83%A8%E7%B1%BB2/2.png" alt=""></p>
+<p>在第二张图中，MyContents就是那个第一张代码图片中没有出现的匿名类</p>
+<p>原理：创建一个继承自Contents的匿名类的对象，通过new表达式返回的引用被自动向上 转型为对Contents的引用</p>
+<p>在这里 Contents是外部已写好的一个接口，  <code>new Contents() { .... }</code> 看似是要给一个接口实例化对象要报错，其实不然，这并不是给一个接口实例化对象，而是给继承了这个接口的一个内部类实例化一次对象，所以返回值是实现了Contents接口的一个匿名类的一个对象，该匿名类只会有一个对象，就是在定义的时候，顺便new一个出来。</p>
 
       
     </div>
@@ -413,8 +415,8 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag"><i class="fa fa-tag"><!--��#����ͼ�α�ǩ<i class="fa fa-tag"></i>--></i>
- 随笔</a>
+            <a href="/tags/Java%E5%86%85%E9%83%A8%E7%B1%BB/" rel="tag"><i class="fa fa-tag"><!--��#����ͼ�α�ǩ<i class="fa fa-tag"></i>--></i>
+ Java内部类</a>
           
         </div>
       
@@ -427,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/12/26/%E4%BE%9D%E6%8D%AE%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E7%9A%84%E8%BE%93%E5%85%A5%E5%AD%97%E7%AC%A6%E4%B8%B2-%E7%94%9F%E6%88%90%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="next" title="依据广度优先的输入字符串 生成二叉树">
-                <i class="fa fa-chevron-left"></i> 依据广度优先的输入字符串 生成二叉树
+              <a href="/2021/04/03/post-name/" rel="next" title="post_name">
+                <i class="fa fa-chevron-left"></i> post_name
               </a>
             
           </div>
@@ -436,10 +438,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/03/17/%E5%8D%9A%E5%AE%A2%E6%9C%AC%E5%9C%B0%E8%BF%81%E7%A7%BB/" rel="prev" title="博客本地迁移">
-                博客本地迁移 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -491,8 +489,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -570,6 +577,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#成员内部类"><span class="nav-number">1.</span> <span class="nav-text">成员内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名内部类"><span class="nav-number">2.</span> <span class="nav-text">匿名内部类</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
