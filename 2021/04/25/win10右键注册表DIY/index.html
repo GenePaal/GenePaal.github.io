@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="GenePaal">
 <meta property="og:description" content="添加右键 &quot;以管理员方式运行CMD 命令行&quot; 步骤">
 <meta property="article:published_time" content="2021-04-25T09:06:47.000Z">
-<meta property="article:modified_time" content="2021-04-25T10:11:07.841Z">
+<meta property="article:modified_time" content="2021-04-25T10:16:40.458Z">
 <meta property="article:author" content="GenePaal">
 <meta property="article:tag" content="win10右键">
 <meta name="twitter:card" content="summary">
@@ -381,6 +381,13 @@
 
 <p>打开注册表<br>Win + R打开运行窗口，输入 regedit 确定后打开注册表<br>打开注册项<br>计算机\HKEY_CLASSES_ROOT\Directory\Background\shell<br>可以直接搜索上面项目，即可找到<br>新建项runas，command<br>在shell目录右键新建一个 runas 的项<br>在runas目录右键新建一个 command 项<br><strong>修改项的值</strong><br>在<code>runas</code>上右键，新建一个<code>DWORD32</code>类型,数值名称<code>ShowBasedOnVelocityId</code>的项目，数值 <code>639bc8</code>的值。</p>
 <p>点击 command 目录，双击默认值 修改为 <code>cmd.exe /s /k pushd &quot;%V&quot;</code></p>
+<blockquote>
+<p>在这里出一个下载文件的教程</p>
+<p>在source文件夹下建一个 download文件夹，将资源放进去 </p>
+<p>然后在正文里写 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[点击下载文件](&#x2F;download&#x2F;文件名.后缀名)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>比如我下面给的这个就是这么写的。 这是一个右键DIY软件 可以利用它来更好地玩转注册表上的右键菜单</p>
 <p><a href="/download/RightMenuMgr.zip">点击下载文件</a></p>
 
       
