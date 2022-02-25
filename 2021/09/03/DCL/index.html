@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="GenePaal">
 <meta property="og:description" content="在研究volatile的原理时顺便学了一下DCL">
 <meta property="article:published_time" content="2021-09-03T13:32:48.000Z">
-<meta property="article:modified_time" content="2021-09-05T13:18:33.171Z">
+<meta property="article:modified_time" content="2021-11-26T16:59:45.435Z">
 <meta property="article:author" content="GenePaal">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="并发">
@@ -407,17 +407,18 @@
 
 <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
 <li>线程不安全。可能会有 &gt; 1 个数量的线程判断到 <code>instance == null</code>成立，造成实例化出 &gt; 1 个对象</li>
-<li>指令重排问题。假设有线程A和线程B，这两个线程“同时”执行 <code>getInstance方法</code>，线程A判断到 instance == null， 然后继续向下执行，实例化对象，但是实例化对象的过程中发生指令重排。<code>正常的实例化顺序：a、为对象开辟内存空间，b、执行构造方法初始化对象的成员变量，c、令instance指向该对象所在内存的首址。</code> 如果指令重排成了 a, c, b， 并且在执行完c后(此时instance不再为null)，cpu的使用权交给了线程B，那么线程B调用 getInstance方法后会返回一个没有初始化的对象，报对象未初始化error。</li>
+<li>指令重排问题。假设有线程A和线程B，这两个线程“同时”执行 <code>getInstance方法</code>，线程A判断到 instance == null， 然后继续向下执行，实例化对象，但是实例化对象的过程中发生指令重排。<code>正常的实例化顺序：a、为对象开辟内存空间，b、加载非static变量，给非static变量赋默认值(0,null), 赋显式声明的初值 c、执行构造方法  d、令instance指向该对象所在内存的首址  e.完成初始化对象的后续操作</code> 如果指令重排成了 a, d… ， 并且在执行完c后(此时instance不再为null)，cpu的使用权交给了线程B，那么线程B调用 getInstance方法后会返回一个没有初始化的对象，报对象未初始化error。</li>
 </ol>
 <h2 id="加单锁"><a href="#加单锁" class="headerlink" title="加单锁"></a>加单锁</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>这样做既保证了线程安全，又可以防止上一个版本的代码中出现的指令重排问题(其实仍然可能会发生指令重排a,c,b，只不过加锁后保证了实例化对象的过程都是发生在一个线程中，不会导致执行a、c后而又让另一个线程调用方法，导致出现异常)。  但是，这种锁字节码的方式粒度太大，同一时间只能有一个线程执行同步方法拿到这个单例，因此，在高并发环境下，吞吐量严重受限。</p>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>这样做既保证了线程安全，又可以防止上一个版本的代码中出现的指令重排问题(其实仍然可能会发生指令重排a,c,b，只不过加锁后保证了实例化对象的过程都是发生在一个线程中，不会导致执行a、c后而又让另一个线程调用方法，导致出现异常)。  但是，这种锁的粒度太大，同一时间只能有一个线程执行同步方法拿到这个单例，因此，在高并发环境下，吞吐量严重受限。</p>
+<p>还有一个缺陷就是变量没有用volatile修饰，在synchronized方法内 new 对象，修改的是共享的引用，如果在线程A中指令重排了，执行了上述所说的new对象过程中的a、c，还没有来得及执行b，然后这时线程B获取到了CPU使用权，判断最外层那个if，直接返回了一个没有初始化的对象，会报异常。</p>
 <h2 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实现双重校验锁实现单例模式</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton instance;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(Singleton<span class="class">.<span class="keyword">class</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><h4 id="在锁外的if判断"><a href="#在锁外的if判断" class="headerlink" title="在锁外的if判断"></a>在锁外的if判断</h4><p><strong>减小锁的粒度。</strong>这个if判断没有在锁内，目的就是当intance != null 时，可以直接返回对象，而 == null时，进入加锁的方法初始化对象，对上面吞吐量低做了优化。</p>
-<h4 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h4><p>保证第二次判断的instance是最新的，保证不会有多个线程“同时”通过第二个if判断检测到 instance为null</p>
-<h4 id="在锁内的if判断"><a href="#在锁内的if判断" class="headerlink" title="在锁内的if判断"></a>在锁内的if判断</h4><p>有可能线程A通过了最外层的if判断后，还没来的及获取锁，CPU立即交给了线程B，线程B通过最外层的if判断，然后获取锁，最终new出了对象，然后CPU交回给线程A，这时对象已经被线程B实例化了，如果不加第二个if判断，线程A也会执行实例化对象的语句，导致不是单例模式。</p>
-<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>禁止指令重排。在synchronized方法内 new 对象，修改的是共享的引用，如果在线程A中指令重排了，执行了上说所说的new对象过程中的a、c，还没有来得及执行b，然后这时线程B获取到了CPU使用权，判断最外层那个if，直接返回了一个没有初始化的对象，会报异常。</p>
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><h4 id="1-在锁外的if判断"><a href="#1-在锁外的if判断" class="headerlink" title="1. 在锁外的if判断"></a>1. 在锁外的if判断</h4><p><strong>减小锁的粒度。</strong>这个if判断没有在锁内，目的就是当intance != null 时，可以直接返回对象，而 == null时，进入加锁的方法初始化对象，对上面吞吐量低做了优化。</p>
+<h4 id="2-synchronized"><a href="#2-synchronized" class="headerlink" title="2. synchronized"></a>2. synchronized</h4><p>保证第二次判断的instance是最新的，保证不会有多个线程“同时”通过第二个if判断检测到 instance为null</p>
+<h4 id="3-在锁内的if判断"><a href="#3-在锁内的if判断" class="headerlink" title="3. 在锁内的if判断"></a>3. 在锁内的if判断</h4><p>有可能线程A通过了最外层的if判断后，还没来的及获取锁，CPU立即交给了线程B，线程B通过最外层的if判断，然后获取锁，最终new出了对象，然后CPU交回给线程A，这时对象已经被线程B实例化了，如果不加第二个if判断，线程A也会执行实例化对象的语句，导致不是单例模式。</p>
+<h3 id="4-volatile"><a href="#4-volatile" class="headerlink" title="4. volatile"></a>4. volatile</h3><p>禁止指令重排。在synchronized方法内 new 对象，修改的是共享的引用，如果在线程A中指令重排了，执行了上述所说的new对象过程中的a、c，还没有来得及执行b，然后这时线程B获取到了CPU使用权，判断最外层那个if，直接返回了一个没有初始化的对象，会报异常。</p>
 
       
     </div>
@@ -458,8 +459,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/05/04/synchronized/" rel="next" title="synchronized_01">
-                <i class="fa fa-chevron-left"></i> synchronized_01
+              <a href="/2021/05/02/cache%E5%92%8Cbuffer/" rel="next" title="cache和buffer">
+                <i class="fa fa-chevron-left"></i> cache和buffer
               </a>
             
           </div>
@@ -552,7 +553,7 @@
             
               <div class="site-state-item site-state-posts">
                 <a href="/archives">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -563,7 +564,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -574,7 +575,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -623,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#最普通的懒汉模式"><span class="nav-number">1.</span> <span class="nav-text">最普通的懒汉模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加单锁"><span class="nav-number">2.</span> <span class="nav-text">加单锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-1"><span class="nav-number">2.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL"><span class="nav-number">3.</span> <span class="nav-text">DCL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解释"><span class="nav-number">3.1.</span> <span class="nav-text">解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在锁外的if判断"><span class="nav-number">3.1.1.</span> <span class="nav-text">在锁外的if判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#synchronized"><span class="nav-number">3.1.2.</span> <span class="nav-text">synchronized</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在锁内的if判断"><span class="nav-number">3.1.3.</span> <span class="nav-text">在锁内的if判断</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile"><span class="nav-number">3.2.</span> <span class="nav-text">volatile</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#最普通的懒汉模式"><span class="nav-number">1.</span> <span class="nav-text">最普通的懒汉模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加单锁"><span class="nav-number">2.</span> <span class="nav-text">加单锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-1"><span class="nav-number">2.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL"><span class="nav-number">3.</span> <span class="nav-text">DCL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解释"><span class="nav-number">3.1.</span> <span class="nav-text">解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在锁外的if判断"><span class="nav-number">3.1.1.</span> <span class="nav-text">1. 在锁外的if判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-synchronized"><span class="nav-number">3.1.2.</span> <span class="nav-text">2. synchronized</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-在锁内的if判断"><span class="nav-number">3.1.3.</span> <span class="nav-text">3. 在锁内的if判断</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-volatile"><span class="nav-number">3.2.</span> <span class="nav-text">4. volatile</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -643,7 +644,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
