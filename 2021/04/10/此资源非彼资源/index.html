@@ -79,14 +79,14 @@
 
 
 
-<meta name="description" content="啃书过程中产生的疑问，最后想通了，并且推广到了一般情况">
+<meta name="description" content="啃书过程中产生的疑问，后来想通了，做了推广">
 <meta property="og:type" content="article">
 <meta property="og:title" content="此资源非彼资源">
 <meta property="og:url" content="http://yoursite.com/2021/04/10/%E6%AD%A4%E8%B5%84%E6%BA%90%E9%9D%9E%E5%BD%BC%E8%B5%84%E6%BA%90/index.html">
 <meta property="og:site_name" content="GenePaal">
-<meta property="og:description" content="啃书过程中产生的疑问，最后想通了，并且推广到了一般情况">
+<meta property="og:description" content="啃书过程中产生的疑问，后来想通了，做了推广">
 <meta property="article:published_time" content="2021-04-10T12:08:41.000Z">
-<meta property="article:modified_time" content="2021-04-10T12:16:28.142Z">
+<meta property="article:modified_time" content="2022-02-25T09:03:43.093Z">
 <meta property="article:author" content="GenePaal">
 <meta property="article:tag" content="OS">
 <meta property="article:tag" content="操作系统">
@@ -402,22 +402,22 @@
       
 
       
-        <center>啃书过程中产生的疑问，最后想通了，并且推广到了一般情况</center>
+        <center>啃书过程中产生的疑问，后来想通了，做了推广</center>
 
 
 <a id="more"></a>
 
 <h2 id="问题出处"><a href="#问题出处" class="headerlink" title="问题出处"></a>问题出处</h2><p>计算机操作系统 第四版 P60</p>
-<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在看AND型信号量的Ssignal操作中的一段伪代码的时候产生的疑问，最后我给推广了，也不错，想通了一个事hhh</span><br><span class="line">其中的一段伪代码是这么描述的👇</span><br><span class="line">Remove all the process waiting in the queue associated with si into the ready queue.</span><br><span class="line">将与si关联的队列中等待的所有进程都删除，并移动到就绪队列中</span><br></pre></td></tr></table></figure>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在看AND型信号量的Ssignal操作中的一段伪代码的时候产生的疑问</span><br><span class="line">其中的一段伪代码是这么描述的👇</span><br><span class="line">Remove all the process waiting in the queue associated with si into the ready queue.</span><br><span class="line">将与si关联的队列中等待的所有进程都删除，并移动到就绪队列中</span><br></pre></td></tr></table></figure>
 
 <h2 id="我的分析"><a href="#我的分析" class="headerlink" title="我的分析"></a>我的分析</h2><p>我觉得这么干有些不妥</p>
 <p>首先解释一下就绪队列，就绪队列中的进程一定都是就绪状态了吧</p>
 <p>那么就绪状态的定义是什么？ 获得了除CPU以外的所有的所需资源</p>
 <p>不妥的地方有两个：</p>
-<p>第一前面将进程加入阻塞队列的原因是 这个进程只要遇到了一个它想要的但是系统没有的资源就会被送进相应的缺少资源的阻塞队列中，但是并不能保证后面的资源一个也不缺。但是你因为现在这个资源被归还了，就直接把因为判到却这个资源而被放进相应阻塞队列里的进程直接给放进就绪队列里吗？  参考 一下上面的就绪状态的定义</p>
-<p>还有就是，即便是这样，你也不能把因为这个资源而进入阻塞队列的所有进程都给激活了吧，你不应该是找一个优先级最高的给激活，放到就绪队列中吗</p>
-<p>所以我认为，书上啊  八成是没有表达对，它其实并不是想表达给放进就绪队列中的意思，而是让它解除阻塞，从而可以继续去判断资源是否够用</p>
-<h2 id="恍然大悟"><a href="#恍然大悟" class="headerlink" title="恍然大悟"></a>恍然大悟</h2><p>啊..woc 我明白了 确实应该给放进就绪队列里，为啥呢？因为代码运行所需的资源和 你说的那个s1,s2,s3,s4……si 资源不是一个资源，这些东西确实是不够的，但这不是代码运行需要的资源，怎么说呢，代码就是为了实现这个东西而设置的…我也不知道怎么说出来好了， 总之 这俩资源不是一个资源  把运行代码的进程放进就绪队列里是正确的，当它获得CPU以后，就开始继续判断 那几个资源是否足够，够了的话 访问临界区。</p>
+<p>第一，前面将进程加入阻塞队列的原因是 这个进程只要遇到了一个它想要的但是系统没有的资源就会被送进相应的缺少资源的阻塞队列中，但是并不能保证后面的资源一个也不缺。但是现在因为这个资源被归还了，就直接把因为判到缺这个资源而被放进相应阻塞队列里的进程直接给放进就绪队列里吗？  参考一下上面的就绪状态的定义</p>
+<p>其次，即便是这样，也不应该将阻塞队列的所有进程都激活了，而是应该找一个优先级最高的激活，放到就绪队列中。</p>
+<p>所以我认为，应该让它解除阻塞，从而可以继续去判断资源是否够用。</p>
+<h2 id="恍然大悟"><a href="#恍然大悟" class="headerlink" title="恍然大悟"></a>恍然大悟</h2><p>其实，代码运行所需的资源和 <code>s1,s2,s3,s4......si</code> 资源不是一个资源。<code>s1,s2,s3,s4......si</code> 资源确实是不够的，但这不是代码运行需要的资源。把运行代码的进程放进就绪队列里是正确的，当它获得CPU以后，就开始继续判断 那几个资源是否足够，够了的话访问临界区。</p>
 <h2 id="推广"><a href="#推广" class="headerlink" title="推广"></a>推广</h2><p>进程运行需要的资源 是内存和CPU等等   我们回到进程的定义   进程是什么？ 进程是程序在一定数据集合上的执行过程 ， 那么进程可以说就是在执行程序  也就是在跑代码，跑代码肯定是不需要太多资源的，这个资源仅仅是内存、CPU….  而 s1,s2,s3,s4,…,sn 这些资源是进程想要访问/使用的资源，这些资源需要通过进程执行wait操作判断, 如果这些资源不够，进程把自己阻塞起来，但是并非因为这些资源  进程就没法运行了，进程运行其实就是跑代码，然后通过跑代码 来判断那些资源够不够，不够的话 把自己阻塞起来，跑代码需要的资源和那些资源不是一回事。当进程被阻塞的时候，它就不能跑代码了，当它被激活的时候，继续去判断信号量的值 从而判断 资源是否可以使用 若可以  则使用资源。 其实这里面也是包含了一些进程阻塞和进程激活的一些本质。</p>
 
       
@@ -475,8 +475,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/04/21/%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/" rel="prev" title="图片测试">
-                图片测试 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/05/02/cache%E5%92%8Cbuffer/" rel="prev" title="cache和buffer">
+                cache和buffer <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -570,7 +570,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -581,7 +581,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
