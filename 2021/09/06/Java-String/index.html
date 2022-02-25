@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="GenePaal">
 <meta property="og:description" content="从内存角度解析Java中字符串的一系列操作">
 <meta property="article:published_time" content="2021-09-06T02:09:42.000Z">
-<meta property="article:modified_time" content="2021-09-06T03:15:45.097Z">
+<meta property="article:modified_time" content="2022-02-25T13:16:50.136Z">
 <meta property="article:author" content="GenePaal">
 <meta property="article:tag" content="JavaBase">
 <meta name="twitter:card" content="summary">
@@ -406,7 +406,7 @@
 <p><strong>首先，说一个大原则，String类型的引用指向的那块内存空间的值不可以被修改。</strong></p>
 <ol>
 <li><code>String str = &quot;abc&quot;;</code>  像这种属于字符串常量，<code>&quot;abc&quot;</code> 存储在一个常量池中，每当有一个类似的<code>String s = &quot;xxx&quot;</code> 操作时，jvm会先去常量池中搜索<code>&quot;xxx&quot;</code>是否已存在，若存在，则直接令引用<code>s</code>指向已存在的<code>&quot;xxx&quot;</code>的地址；否则，划一块内存存储<code>&quot;xxx&quot;</code>，并令引用<code>s</code>指向这块内存的地址。</li>
-<li><code>String str = new String(&quot;abc&quot;);</code>    这个操作和我们new对象类似，<code>&quot;abc&quot;</code>最终是存储在堆区，但是仍然不可以通过由引用str寻址到”abc”的所在的那块内存对这块内存中的值即<code>&quot;abc&quot;</code>直接进行修改操作。但是为什么我们却可以在Java代码中通过 <code>+</code> 对String类型的变量做加法操作呢？</li>
+<li><code>String str = new String(&quot;abc&quot;);</code>   这个操作最后会生成<code>一个或两个</code>对象。这个操作和我们new对象类似，在堆区划一块空间存储字符串对象<code>&quot;abc&quot;</code>，且jvm会去常量池中搜索是否有<code>&quot;abc&quot;</code>， 若没有，在常量池中也划一块内存，将<code>&quot;abc&quot;</code>放入。这种方式new出来的字符串对象仍然不可以通过由引用str寻址得到的内存中的值即<code>&quot;abc&quot;</code>直接进行修改操作。但是为什么我们却可以在Java代码中通过 <code>+</code> 对String类型的变量做加法操作呢？</li>
 <li>String变量加法操作</li>
 </ol>
 <p>源码</p>
@@ -415,13 +415,13 @@
 <p>反编译之后的Java代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"ab"</span>;</span><br><span class="line">str1 = (<span class="keyword">new</span> StringBuilder()).append(str1).append(<span class="string">"c"</span>).toString();</span><br><span class="line">String str2 = <span class="keyword">new</span> String(<span class="string">"d"</span>);</span><br><span class="line">str2 = (<span class="keyword">new</span> StringBuilder()).append(str2).append(<span class="string">"ef"</span>).toString();</span><br></pre></td></tr></table></figure>
 
-<p>可以看到，<code>String</code>类型字符串的加法操作并没有违背上述第二点所说，加法的本质其实是又new了一个StringBuilder对象，然后将<code>+</code>连接起来的所有字符串依次<code>append</code>，最后再调用toString方法将StringBuilder转换为String，以此来完成对String字符串的加法操作。从这里还可以推断出String类型的字符串不是对引用指向的内存中的值做直接修改的。</p>
+<p>可以看到，<code>String</code>类型字符串的加法操作并没有违背上述第二点所说，加法的本质其实是又new了一个StringBuilder对象，然后将<code>+</code>连接起来的所有字符串依次<code>append</code>，最后再调用toString方法将StringBuilder转换为String，以此来完成对String字符串的加法操作。</p>
 <p><strong>抛出一个问题，上述源码第二行<code>str1 += &quot;c&quot;;</code> 在执行过程中一共new了几个对象？</strong></p>
 <p>首先应该提一下的是StringBuilder的toString()方法，它重写了Object类的toString()</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Create a copy, don't share the array</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> String(value, <span class="number">0</span>, count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>从源码可以看到toString的本质还是通过 <code>new String()</code>转换为String类型的字符串的。从这里还可以推断出StringBuilder类型的字符串在调用toString方法之后，已不再是原来的那块内存。</p>
-<p>答案： 2个，  首先是new了StringBuffer对象，其次，在最后调用toString方法的时候，又通过 <code>new String()</code>的形式将其转换为String类型。</p>
+<p>答案： 2个或3个，  首先是new了StringBuffer对象，其次，在最后调用toString方法的时候，又通过 <code>new String()</code>的形式将其转换为String类型。至于为什么会在”或”后多出来一个，请看上面对new string() 可能生成1个或2个对象的解释。</p>
 <p>暂且说到这里，后续继续补充。</p>
 
       
@@ -539,7 +539,7 @@
             
               <div class="site-state-item site-state-posts">
                 <a href="/archives">
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -10,18 +10,17 @@
 
 <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
 <li>线程不安全。可能会有 &gt; 1 个数量的线程判断到 <code>instance == null</code>成立，造成实例化出 &gt; 1 个对象</li>
-<li>指令重排问题。假设有线程A和线程B，这两个线程“同时”执行 <code>getInstance方法</code>，线程A判断到 instance == null， 然后继续向下执行，实例化对象，但是实例化对象的过程中发生指令重排。<code>正常的实例化顺序：a、为对象开辟内存空间，b、加载非static变量，给非static变量赋默认值(0,null), 赋显式声明的初值 c、执行构造方法  d、令instance指向该对象所在内存的首址  e.完成初始化对象的后续操作</code> 如果指令重排成了 a, d… ， 并且在执行完c后(此时instance不再为null)，cpu的使用权交给了线程B，那么线程B调用 getInstance方法后会返回一个没有初始化的对象，报对象未初始化error。</li>
+<li>指令重排问题。假设有线程A和线程B，两线程均执行到了<code>getInstance()</code>方法。假设首先线程A判断到 <code>instance == null</code>， 然后继续向下执行，实例化对象，但是实例化对象的过程中发生指令重排。<code>正常的实例化顺序：a、为对象分配空间 b、初始化对象 c、instance指向内存地址</code> 如果指令重排成了 a，c，b， 并且在执行完c后(此时instance不再为null)，cpu的使用权交给了线程B，由于<code>instance</code>的值不再为<code>null</code>, 因此线程B调用 getInstance方法后会返回一个没有初始化的对象。</li>
 </ol>
 <h2 id="加单锁"><a href="#加单锁" class="headerlink" title="加单锁"></a>加单锁</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>这样做既保证了线程安全，又可以防止上一个版本的代码中出现的指令重排问题(其实仍然可能会发生指令重排a,c,b，只不过加锁后保证了实例化对象的过程都是发生在一个线程中，不会导致执行a、c后而又让另一个线程调用方法，导致出现异常)。  但是，这种锁的粒度太大，同一时间只能有一个线程执行同步方法拿到这个单例，因此，在高并发环境下，吞吐量严重受限。</p>
-<p>还有一个缺陷就是变量没有用volatile修饰，在synchronized方法内 new 对象，修改的是共享的引用，如果在线程A中指令重排了，执行了上述所说的new对象过程中的a、c，还没有来得及执行b，然后这时线程B获取到了CPU使用权，判断最外层那个if，直接返回了一个没有初始化的对象，会报异常。</p>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>这样做既保证了线程安全，又可以防止上一个版本的代码中出现的指令重排问题(其实仍然可能会发生指令重排a,c,b，只不过加锁后保证了实例化对象的过程都是发生在一个线程中，不会导致执行a、c后而又让另一个线程调用<code>getInstance方法</code>，导致出现异常)。  但是，这种锁的粒度太大，同一时间只能有一个线程执行同步方法拿到这个单例，因此，在高并发环境下不适宜使用。</p>
 <h2 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//实现双重校验锁实现单例模式</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton instance;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(Singleton<span class="class">.<span class="keyword">class</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><h4 id="1-在锁外的if判断"><a href="#1-在锁外的if判断" class="headerlink" title="1. 在锁外的if判断"></a>1. 在锁外的if判断</h4><p><strong>减小锁的粒度。</strong>这个if判断没有在锁内，目的就是当intance != null 时，可以直接返回对象，而 == null时，进入加锁的方法初始化对象，对上面吞吐量低做了优化。</p>
-<h4 id="2-synchronized"><a href="#2-synchronized" class="headerlink" title="2. synchronized"></a>2. synchronized</h4><p>保证第二次判断的instance是最新的，保证不会有多个线程“同时”通过第二个if判断检测到 instance为null</p>
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><h4 id="1-在锁外的if判断"><a href="#1-在锁外的if判断" class="headerlink" title="1. 在锁外的if判断"></a>1. 在锁外的if判断</h4><p><strong>减小锁的粒度。</strong>这个if判断没有在锁内，目的就是当intance != null 时，可以直接返回对象，而 == null时，才进入加锁的方法初始化对象。</p>
+<h4 id="2-synchronized"><a href="#2-synchronized" class="headerlink" title="2. synchronized"></a>2. synchronized</h4><p>首先保证instance变量的可见性，即第二次判断的instance是最新的。其次，保证不会有多个线程“同时”通过第二个if判断检测到 instance为null</p>
 <h4 id="3-在锁内的if判断"><a href="#3-在锁内的if判断" class="headerlink" title="3. 在锁内的if判断"></a>3. 在锁内的if判断</h4><p>有可能线程A通过了最外层的if判断后，还没来的及获取锁，CPU立即交给了线程B，线程B通过最外层的if判断，然后获取锁，最终new出了对象，然后CPU交回给线程A，这时对象已经被线程B实例化了，如果不加第二个if判断，线程A也会执行实例化对象的语句，导致不是单例模式。</p>
-<h3 id="4-volatile"><a href="#4-volatile" class="headerlink" title="4. volatile"></a>4. volatile</h3><p>禁止指令重排。在synchronized方法内 new 对象，修改的是共享的引用，如果在线程A中指令重排了，执行了上述所说的new对象过程中的a、c，还没有来得及执行b，然后这时线程B获取到了CPU使用权，判断最外层那个if，直接返回了一个没有初始化的对象，会报异常。</p>
+<h3 id="4-volatile"><a href="#4-volatile" class="headerlink" title="4. volatile"></a>4. volatile</h3><p>禁止指令重排。在synchronized方法内 new 对象，修改的是共享的引用，如果在线程A中指令重排了，执行了上述所说的new对象过程中的a、c，还没有来得及执行b，然后这时线程B获取到了CPU使用权，判断最外层那个if，直接返回了一个没有初始化的对象。</p>
 ]]></content>
       <categories>
         <category>设计模式</category>
@@ -95,7 +94,7 @@
 <p><strong>首先，说一个大原则，String类型的引用指向的那块内存空间的值不可以被修改。</strong></p>
 <ol>
 <li><code>String str = &quot;abc&quot;;</code>  像这种属于字符串常量，<code>&quot;abc&quot;</code> 存储在一个常量池中，每当有一个类似的<code>String s = &quot;xxx&quot;</code> 操作时，jvm会先去常量池中搜索<code>&quot;xxx&quot;</code>是否已存在，若存在，则直接令引用<code>s</code>指向已存在的<code>&quot;xxx&quot;</code>的地址；否则，划一块内存存储<code>&quot;xxx&quot;</code>，并令引用<code>s</code>指向这块内存的地址。</li>
-<li><code>String str = new String(&quot;abc&quot;);</code>    这个操作和我们new对象类似，<code>&quot;abc&quot;</code>最终是存储在堆区，但是仍然不可以通过由引用str寻址到”abc”的所在的那块内存对这块内存中的值即<code>&quot;abc&quot;</code>直接进行修改操作。但是为什么我们却可以在Java代码中通过 <code>+</code> 对String类型的变量做加法操作呢？</li>
+<li><code>String str = new String(&quot;abc&quot;);</code>   这个操作最后会生成<code>一个或两个</code>对象。这个操作和我们new对象类似，在堆区划一块空间存储字符串对象<code>&quot;abc&quot;</code>，且jvm会去常量池中搜索是否有<code>&quot;abc&quot;</code>， 若没有，在常量池中也划一块内存，将<code>&quot;abc&quot;</code>放入。这种方式new出来的字符串对象仍然不可以通过由引用str寻址得到的内存中的值即<code>&quot;abc&quot;</code>直接进行修改操作。但是为什么我们却可以在Java代码中通过 <code>+</code> 对String类型的变量做加法操作呢？</li>
 <li>String变量加法操作</li>
 </ol>
 <p>源码</p>
@@ -104,13 +103,13 @@
 <p>反编译之后的Java代码</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str1 = <span class="string">"ab"</span>;</span><br><span class="line">str1 = (<span class="keyword">new</span> StringBuilder()).append(str1).append(<span class="string">"c"</span>).toString();</span><br><span class="line">String str2 = <span class="keyword">new</span> String(<span class="string">"d"</span>);</span><br><span class="line">str2 = (<span class="keyword">new</span> StringBuilder()).append(str2).append(<span class="string">"ef"</span>).toString();</span><br></pre></td></tr></table></figure>
 
-<p>可以看到，<code>String</code>类型字符串的加法操作并没有违背上述第二点所说，加法的本质其实是又new了一个StringBuilder对象，然后将<code>+</code>连接起来的所有字符串依次<code>append</code>，最后再调用toString方法将StringBuilder转换为String，以此来完成对String字符串的加法操作。从这里还可以推断出String类型的字符串不是对引用指向的内存中的值做直接修改的。</p>
+<p>可以看到，<code>String</code>类型字符串的加法操作并没有违背上述第二点所说，加法的本质其实是又new了一个StringBuilder对象，然后将<code>+</code>连接起来的所有字符串依次<code>append</code>，最后再调用toString方法将StringBuilder转换为String，以此来完成对String字符串的加法操作。</p>
 <p><strong>抛出一个问题，上述源码第二行<code>str1 += &quot;c&quot;;</code> 在执行过程中一共new了几个对象？</strong></p>
 <p>首先应该提一下的是StringBuilder的toString()方法，它重写了Object类的toString()</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Create a copy, don't share the array</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> String(value, <span class="number">0</span>, count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>从源码可以看到toString的本质还是通过 <code>new String()</code>转换为String类型的字符串的。从这里还可以推断出StringBuilder类型的字符串在调用toString方法之后，已不再是原来的那块内存。</p>
-<p>答案： 2个，  首先是new了StringBuffer对象，其次，在最后调用toString方法的时候，又通过 <code>new String()</code>的形式将其转换为String类型。</p>
+<p>答案： 2个或3个，  首先是new了StringBuffer对象，其次，在最后调用toString方法的时候，又通过 <code>new String()</code>的形式将其转换为String类型。至于为什么会在”或”后多出来一个，请看上面对new string() 可能生成1个或2个对象的解释。</p>
 <p>暂且说到这里，后续继续补充。</p>
 ]]></content>
       <categories>
@@ -989,6 +988,49 @@
       </categories>
       <tags>
         <tag>后序遍历</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重写equals()方法</title>
+    <url>/2022/02/25/%E9%87%8D%E5%86%99equals-%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<center>为什么重写equals()方法也要重写hashcode()？</center>
+
+<a id="more"></a>
+
+<p>equals() 和 hashcode() 都是 Object对象的方法。</p>
+<p>equals 源码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出原始equals() 方法内部是用 == 作为判断依据，即若两个对象是不是同一个实例/两个对象的引用是否指向同一块内存/两个对象的引用的值是否相等。因此equals返回值为true即可认为两个对象的地址相同。</p>
+<p>而原始hashcode() 是根据对象的地址，根据哈希函数计算出来的，若对象地址相同，得到的hashcode必然也相同。</p>
+<p>因此在”出厂“时，二者便有了这样一关系：equals返回结果为true的两个对象的hashcode必然相同。同时逆反一下，hashcode不同的两个对象，equals返回结果必然是false。特别说明一下，hash表是可能有冲突的，因此输入不同的地址，hash函数计算出来的数值也是可能相同的，因此，hashcode相同的两个对象不一定是同一个对象(equals方法返回结果不一定是true)。</p>
+<p>在map中，判断两个key(obj1, obj2)是否重复的伪码：</p>
+<p>  <code>( obj1.hashcode() == obj2.hashcode() )</code></p>
+<p><code>&amp;&amp; ((obj1 == obj2) || obj1.equals(obj2) == true)</code></p>
+<p>hashcode 保证性能。主要是通过那个逆反条件  <code>hashcode不同的两个对象，equals返回结果必然是false(必然不是同一个对象)，</code>再加上 &amp;&amp; 符号的特性， 可以很快地判断两个是否必定不是同一个对象。一个map中肯定不是一个对象的要多，因此在 &amp;&amp; 前面比较hashcode可以很大幅度地提高比较的速度。</p>
+<p>equals 保证可靠。由于hash散列可能有冲突，因此不是同一个对象的hashcode可能也是相同的，因此若hashcode相同，还是要判断后面<code>((obj1 == obj2) || obj1.equals(obj2) == true)</code>  </p>
+<p>这样，hashcode和equals的同时存在就说的通了，它们互相弥补，以最快地判断两个对象是否相同。两者的存在并不冗余。</p>
+<p>那为什么<code>((obj1 == obj2) || obj1.equals(obj2) == true)</code>     后面还要加一个<code>obj1.equals(obj2) == true</code> ？ 这就该引出我们的 重写equals方法了。</p>
+<p>在开发中，我们很多时候并不希望通过地址来判断是不是同一个对象，我们希望的结果是，只要两个对象的值相同，我们就认为它们是相同的，  如 我们经常将 String类型的字符串作为key来放入map中，正好String也重写了equals方法， 如果String 不重写equals方法，那么 相同的字符串”abc” 作为key 可能会存两次，在根据”abc” 作为key取时，也可能取到另一个value。 这是我们重写equals方法的初衷。</p>
+<p>在这里补充一下重写equals方法的原则</p>
+<blockquote>
+<p>大前提调用equals方法的对象引用值不为null</p>
+<ol>
+<li>自反，</li>
+<li>对称，</li>
+<li>传递，</li>
+<li>一致性，</li>
+<li>obj.equals(null) == false</li>
+</ol>
+</blockquote>
+<p>那为什么重写equals也要重写hashcode方法？</p>
+<p>网上对于这块众说纷纭，我琢磨一番给出一个相对本质的答案吧。  如果重写了equals()不重写hashcode() 会影响hashmap中对key是否已存在的判断， 如果你的对象即将作为key值且重写了equals()，那么必须重写hashcode()。 如果你仅仅是希望改变判断对象是否相等时依据，不打算将其作为key值，可以不重写hashcode。</p>
+<p>上面说到hashmap判断key是否重复的条件是 <code>( obj1.hashcode() == obj2.hashcode() )</code></p>
+<p><code>&amp;&amp; ((obj1 == obj2) || obj1.equals(obj2) == true)</code>， 其实最本质最原始的还是比较地址，加了一个hashcode 是为了提高性能，  加了一个equals是为了在存map时，不将地址作为判断是否为同一个key时，hashmap也能正常工作。</p>
+<p>上文说到“出厂”时二者具有这一关系， hashmap判断key是否重复的方法也是根据这一关系设计的， equals比较地址，hashcode就根据地址计算。 当你的equals比较的是值时，hashcode也要根据值来计算。否则会出现，equals相等代表两个对象相等，但是hashcode还是根据地址计算，由于是两个不同的对象，极大概率会不相等，因此极大概率会存两遍。</p>
+]]></content>
+      <tags>
+        <tag>JavaBase</tag>
       </tags>
   </entry>
 </search>
