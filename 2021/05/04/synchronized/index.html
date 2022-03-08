@@ -81,12 +81,12 @@
 
 <meta name="description" content="通俗地理解”锁“">
 <meta property="og:type" content="article">
-<meta property="og:title" content="synchronized_01">
+<meta property="og:title" content="锁">
 <meta property="og:url" content="http://yoursite.com/2021/05/04/synchronized/index.html">
 <meta property="og:site_name" content="GenePaal">
 <meta property="og:description" content="通俗地理解”锁“">
 <meta property="article:published_time" content="2021-05-04T07:16:37.000Z">
-<meta property="article:modified_time" content="2022-02-25T09:05:19.775Z">
+<meta property="article:modified_time" content="2022-03-08T06:23:22.648Z">
 <meta property="article:author" content="GenePaal">
 <meta property="article:tag" content="JavaBase">
 <meta property="article:tag" content="JavaSynchronized">
@@ -129,7 +129,7 @@
 
 
 
-  <title>synchronized_01 | GenePaal</title>
+  <title>锁 | GenePaal</title>
   
 
 
@@ -319,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">synchronized_01</h1>
+          <h1 class="post-title" itemprop="name headline">锁</h1>
         
 
         <div class="post-meta">
@@ -414,7 +414,7 @@
 <ul>
 <li><p>在现实中，一个箱子被锁上了，那它就是被锁上了，你是无法打开的。</p>
 </li>
-<li><p>而在计算机的世界里，假如一个临界区被锁了，你以为是真的被锁了无法访问了吗？不是的，那块内存并没有被锁，是可以访问的，只是在访问前都必须用原语去判一下标志位。如何我没有表达清除的话，那我再举一个例子：就好比我们的红绿灯一样，只是个标识，当红灯的时候，告诉你不可以往前走，是真的不能往前走吗？前面真的是没路了吗？并不是。只有绿灯的时候路是打开的，红灯的时候路就锁上了不能走了吗？并不是。不论是红灯还是绿灯，路都是通的。</p>
+<li><p>而在计算机的世界里，假如一个临界区被锁了，你以为是真的被锁了无法访问了吗？不是的，那块内存并没有被锁，是可以访问的，只是在访问前都必须用原语去判一下标志位。如果我没有表达清楚的话，那我再举一个例子：就好比我们的红绿灯一样，只是个标识，当红灯的时候，告诉你不可以往前走，是真的不能往前走吗？前面真的是没路了吗？并不是。只有绿灯的时候路是打开的，红灯的时候路就锁上了不能走了吗？并不是。不论是红灯还是绿灯，路都是通的。</p>
 </li>
 </ul>
 
